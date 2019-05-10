@@ -39,8 +39,7 @@ body, h1, h2, h3, form, input {
 }
 
 
-.task,
-.add-task {
+.task {
     display: flex;
     &:not(:last-child) {
         margin-bottom: 20px;
@@ -103,5 +102,27 @@ body, h1, h2, h3, form, input {
         display: block;
         margin-right: 6px;
         background-image: url('../image/uncheck-icon.svg');
+    }
+}
+.task--invalid {
+    animation: invalid 0.3s forwards ease-in;
+    // transition: transform 0.5s ease-in;
+}
+
+@keyframes invalid {
+    0% {
+        transform: translate(0,0);
+    }
+    25% {
+        transform: translate(-3px,0);
+    }
+    50% {
+        transform: translate(0,0);
+    }
+    75% {
+        transform: translate(3px,0);
+    }
+    100% {
+        transform: translate(0);
     }
 }
