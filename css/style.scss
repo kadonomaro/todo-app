@@ -1,0 +1,33 @@
+$color-main: #2fb6cf;
+$color-second: #5ebe7f;
+$color-gray: #e2e2e2;
+$color-gray-light: #eeeeee;
+$font-main: 'Roboto Mono', monospace;
+
+
+body, h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    font-family: $font-main;
+}
+
+
+.todo {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: $color-gray;
+    box-shadow: 4px 4px 0 rgba($color: #000000, $alpha: 0.4);
+    &__header {
+        text-align: center;
+        background-color: $color-main;
+    }
+    &__title {
+        font-size: 36px;
+    }
+    &__body {
+        padding: 20px;
+    }
+}

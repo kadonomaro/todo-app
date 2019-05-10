@@ -1,1 +1,30 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+body, h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  font-family: "Roboto Mono", monospace;
+}
+
+.todo {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #e2e2e2;
+  -webkit-box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+          box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.todo__header {
+  text-align: center;
+  background-color: #2fb6cf;
+}
+
+.todo__title {
+  font-size: 36px;
+}
+
+.todo__body {
+  padding: 20px;
+}
+/*# sourceMappingURL=style.css.map */
