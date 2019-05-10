@@ -15,18 +15,18 @@
             <h1 class="todo__title">To Do App</h1>
         </header>
         <div class="todo__body">
-            <form action="#" class="todo__tasks">
-                <div class="add-task task">
-                    <input type="text" class="task__input" placeholder="Add task">
-                    <button class="task__button"></button>
+            <form action="#" class="todo__tasks js-task-list">
+                <div class="task js-add-task">
+                    <input type="text" class="task__input js-task-name" placeholder="Add task">
+                    <button class="task__button js-task-button"></button>
                 </div>
-                <div class="task">
+                <div class="task js-task">
                     <label>
                         <input class="task__check" type="checkbox" name="task-check">
                         <span class="task__check-fake task__button"></span>
                     </label>
-                    <input type="text" class="task__input">
-                    <button class="task__button task__button--closing"></button>
+                    <input type="text" class="task__input" readonly>
+                    <button class="task__button task__button--closing js-close-button"></button>
                 </div>
 
             </form>
