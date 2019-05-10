@@ -5,12 +5,13 @@ $color-gray-light: #eeeeee;
 $font-main: 'Roboto Mono', monospace;
 
 
-body, h1, h2, h3 {
+body, h1, h2, h3, form, input {
     margin: 0;
     padding: 0;
 }
 
 .page {
+    padding: 20px;
     font-family: $font-main;
 }
 
@@ -21,13 +22,51 @@ body, h1, h2, h3 {
     background-color: $color-gray;
     box-shadow: 4px 4px 0 rgba($color: #000000, $alpha: 0.4);
     &__header {
+        height: 50px;
         text-align: center;
         background-color: $color-main;
     }
     &__title {
         font-size: 36px;
+        line-height: 50px;
+        font-weight: normal;
+        user-select: none;
     }
     &__body {
         padding: 20px;
+    }
+}
+
+
+.task {
+    display: flex;
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
+    &__input {
+        flex: 1;
+        margin-right: 6px;
+        padding: 8px;
+        font-size: inherit;
+        background-color: $color-gray-light;
+        border: 3px solid $color-main;
+        box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
+        &::placeholder {
+            font-size: inherit;
+        }
+    }
+    &__button {
+        width: 40px;
+        height: 40px;
+        background-color: $color-main;
+        background-image: url('../image/plus-icon.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        border: none;
+        box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
+        transition: all 0.2s ease-in;
+        &:active {
+            box-shadow: 1px 1px 1px rgba($color: #000000, $alpha: 0.25);
+        }
     }
 }

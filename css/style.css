@@ -1,9 +1,10 @@
-body, h1, h2, h3 {
+body, h1, h2, h3, form, input {
   margin: 0;
   padding: 0;
 }
 
 .page {
+  padding: 20px;
   font-family: "Roboto Mono", monospace;
 }
 
@@ -16,15 +17,80 @@ body, h1, h2, h3 {
 }
 
 .todo__header {
+  height: 50px;
   text-align: center;
   background-color: #2fb6cf;
 }
 
 .todo__title {
   font-size: 36px;
+  line-height: 50px;
+  font-weight: normal;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .todo__body {
   padding: 20px;
+}
+
+.task {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.task:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.task__input {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-right: 6px;
+  padding: 8px;
+  font-size: inherit;
+  background-color: #eeeeee;
+  border: 3px solid #2fb6cf;
+  -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.task__input::-webkit-input-placeholder {
+  font-size: inherit;
+}
+
+.task__input:-ms-input-placeholder {
+  font-size: inherit;
+}
+
+.task__input::-ms-input-placeholder {
+  font-size: inherit;
+}
+
+.task__input::placeholder {
+  font-size: inherit;
+}
+
+.task__button {
+  width: 40px;
+  height: 40px;
+  background-color: #2fb6cf;
+  background-image: url("../image/plus-icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+.task__button:active {
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+          box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
 }
 /*# sourceMappingURL=style.css.map */
