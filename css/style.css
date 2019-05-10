@@ -36,17 +36,20 @@ body, h1, h2, h3, form, input {
   padding: 20px;
 }
 
-.task {
+.task,
+.add-task {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.task:not(:last-child) {
+.task:not(:last-child),
+.add-task:not(:last-child) {
   margin-bottom: 20px;
 }
 
-.task__input {
+.task__input,
+.add-task__input {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -57,25 +60,40 @@ body, h1, h2, h3, form, input {
   border: 3px solid #2fb6cf;
   -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+  -webkit-transition: -webkit-box-shadow 0.2s ease-in;
+  transition: -webkit-box-shadow 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in, -webkit-box-shadow 0.2s ease-in;
 }
 
-.task__input::-webkit-input-placeholder {
+.task__input::-webkit-input-placeholder,
+.add-task__input::-webkit-input-placeholder {
   font-size: inherit;
 }
 
-.task__input:-ms-input-placeholder {
+.task__input:-ms-input-placeholder,
+.add-task__input:-ms-input-placeholder {
   font-size: inherit;
 }
 
-.task__input::-ms-input-placeholder {
+.task__input::-ms-input-placeholder,
+.add-task__input::-ms-input-placeholder {
   font-size: inherit;
 }
 
-.task__input::placeholder {
+.task__input::placeholder,
+.add-task__input::placeholder {
   font-size: inherit;
 }
 
-.task__button {
+.task__input:focus,
+.add-task__input:focus {
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+          box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.task__button,
+.add-task__button {
   width: 40px;
   height: 40px;
   background-color: #2fb6cf;
@@ -87,10 +105,66 @@ body, h1, h2, h3, form, input {
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
   -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
+  cursor: pointer;
 }
 
-.task__button:active {
+.task__button:active,
+.add-task__button:active {
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
           box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.task__button--closing,
+.add-task__button--closing {
+  background-image: url("../image/close-icon.svg");
+}
+
+.task__check,
+.add-task__check {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  border: 0;
+  overflow: hidden;
+}
+
+.task__check:focus + .task__check-fake,
+.add-task__check:focus + .task__check-fake {
+  outline: 1px solid;
+}
+
+.task__check:checked + .task__check-fake,
+.add-task__check:checked + .task__check-fake {
+  background-image: url("../image/close-icon.svg");
+}
+
+.task__check:checked + .task__check-fake::before,
+.add-task__check:checked + .task__check-fake::before {
+  opacity: 0;
+}
+
+.task__check-fake,
+.add-task__check-fake {
+  position: relative;
+  display: block;
+  margin-right: 6px;
+  background-image: none;
+}
+
+.task__check-fake::before,
+.add-task__check-fake::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  background-color: #ffffff;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 /*# sourceMappingURL=style.css.map */

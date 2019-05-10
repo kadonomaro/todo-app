@@ -16,15 +16,18 @@
         </header>
         <div class="todo__body">
             <form action="#" class="todo__tasks">
-                <label class="task">
+                <div class="add-task task">
                     <input type="text" class="task__input" placeholder="Add task">
                     <button class="task__button"></button>
-                </label>
-                <label class="task">
-                    <button class="task__button"></button>
-                    <input type="text" class="task__input" placeholder="Add task">
-                    <button class="task__button"></button>
-                </label>
+                </div>
+                <div class="task">
+                    <label>
+                        <input class="task__check" type="checkbox" name="task-check">
+                        <span class="task__check-fake task__button"></span>
+                    </label>
+                    <input type="text" class="task__input">
+                    <button class="task__button task__button--closing"></button>
+                </div>
 
             </form>
             
