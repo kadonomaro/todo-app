@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (evt.target.classList.contains('js-close-button')) {
                 removeTask(newTask, taskList);
             }
+            if (evt.target.classList.contains('js-complete-button')) {
+                completeTask(this, 'task--completed', evt.target);
+            }
         });
     });
 
@@ -52,7 +55,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     localStorage.setItem('task_count', taskCount);
                     localStorage.removeItem('task_id_' + this.dataset.taskID);
                 }
-                
+                if (evt.target.classList.contains('js-complete-button')) {
+                    completeTask(this, 'task--completed', evt.target);
+                }
             });
         }
     }
@@ -60,6 +65,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function removeTask(task, taskList) {
         taskList.removeChild(task);
+    }
+
+
+    function completeTask(task, className, completeButton) {
+        if (completeButton.checked) {
+            task.classList.add(className);
+        } else {
+            task.classList.remove(className);
+        }
     }
     
 
