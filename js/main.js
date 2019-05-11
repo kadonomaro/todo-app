@@ -5,10 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var addTaskButton = taskList.querySelector('.js-task-button');
     var taskName = taskList.querySelector('.js-task-name');
     var task = document.querySelector('.js-task');
+    var progressBar = document.querySelector('.js-progress');
     var taskCount = 0;
     var taskInfo = {};
-    
 
+    progressBar.value = 1;
 
     /*CREATING NEW TASK*/
     addTaskButton.addEventListener('click', function (evt) {
@@ -116,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         removeTask(this, taskList);
                         delete taskInfo['ID_' + this.dataset.taskID];
                         toLocalStorage('task_info', taskInfo);
-                        console.log(taskInfo);
                         if (localStorage.getItem('task_info') === '{}') {
                             taskCount = 0;
                             localStorage.setItem('task_count', taskCount);
@@ -139,5 +139,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    
 });
