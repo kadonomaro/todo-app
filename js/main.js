@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var task = document.querySelector('.js-task');
     var taskCount = 0;
     var taskMaxCount = 0;
+    var taskInfo = {};
+    
 
 
-    loadTasks();
-
-
+    /*CREATING NEW TASK*/
     taskButton.addEventListener('click', function (evt) {
         evt.preventDefault();
         var newTask = task.cloneNode(true);
@@ -19,10 +19,20 @@ document.addEventListener('DOMContentLoaded', function () {
         if (taskName.value !== '') {
             taskCount++;
             taskMaxCount++;
-            localStorage.setItem('task_count', taskCount);
-            localStorage.setItem('task_max_count', taskMaxCount);
-            localStorage.setItem('task_id_' + taskCount, taskName.value);
+            // localStorage.setItem('task_count', taskCount);
+            // localStorage.setItem('task_max_count', taskMaxCount);
+            // localStorage.setItem('task_id_' + taskCount, taskName.value);
             newTask.children[1].value = taskName.value;
+            newTask.dataset.taskID = taskCount;
+
+            
+            taskInfo['ID_' + newTask.dataset.taskID] = {
+                title: newTask.children[1].value,
+                checked: newTask.children[0].children[0].checked
+            };
+            toLocalStorage('task_info', taskInfo);
+
+
             taskName.value = '';
             taskList.appendChild(newTask);
         } else {
@@ -34,47 +44,54 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         
         newTask.addEventListener('click', function (evt) {
+            /* CLOSING TASK*/
             if (evt.target.classList.contains('js-close-button')) {
-                removeTask(newTask, taskList);
+                removeTask(this, taskList);
+                taskCount--;
+                if (taskCount <= 0) {
+                    taskMaxCount = 0;
+                    localStorage.setItem('task_max_count', taskMaxCount);
+                }
+                // localStorage.setItem('task_count', taskCount);
+                // localStorage.removeItem('task_id_' + this.dataset.taskID);
+                delete taskInfo['ID_' + this.dataset.taskID];
+                toLocalStorage('task_info', taskInfo);
+
             }
+            /* COMPLETION TASK*/
             if (evt.target.classList.contains('js-complete-button')) {
                 completeTask(this, 'task--completed', evt.target);
+
+                taskInfo['ID_' + this.dataset.taskID] = {
+                    title: this.children[1].value,
+                    checked: this.children[0].children[0].checked
+                };
+                toLocalStorage('task_info', taskInfo);
             }
         });
     });
 
-    /* LOADING TASK FROM LOCAL-STORAGE*/
+    loadTasks();
+
+    /* LOADING TASKS FROM LOCALSTORAGE*/
     function loadTasks() {
-        taskCount += localStorage.getItem('task_count');
-        taskMaxCount = localStorage.getItem('task_max_count');
-        for (var i = 1; i <= taskMaxCount; i++) {
-            if (localStorage.getItem('task_id_' + i) !== null) {
+        var localTaskInfo = localStorage.getItem('task_info');
+        localTaskInfo = JSON.parse(localTaskInfo);
+        for (var key in localTaskInfo) {
+            if (localTaskInfo.hasOwnProperty(key)) {
                 var newTask = task.cloneNode(true);
                 newTask.classList.remove('task--hidden');
-                newTask.children[1].value = localStorage.getItem('task_id_' + i);
-                newTask.dataset.taskID = i;
+                newTask.children[1].value = localTaskInfo[key].title;
+                if (localTaskInfo[key].checked) {
+                    newTask.classList.add('task--completed');
+                    newTask.children[0].children[0].checked = true;
+                }
                 taskList.appendChild(newTask);
-
-                newTask.addEventListener('click', function (evt) {
-                    if (evt.target.classList.contains('js-close-button')) {
-                        removeTask(this, taskList);
-                        taskCount--;
-                        if (taskCount <= 0) {
-                            taskMaxCount = 0;
-                            localStorage.setItem('task_max_count', taskMaxCount);
-                        }
-                        localStorage.setItem('task_count', taskCount);
-                        localStorage.removeItem('task_id_' + this.dataset.taskID);
-                    }
-                    if (evt.target.classList.contains('js-complete-button')) {
-                        completeTask(this, 'task--completed', evt.target);
-                    }
-                });
             }
         }
     }
 
-    
+
     function removeTask(task, taskList) {
         taskList.removeChild(task);
     }
@@ -87,6 +104,13 @@ document.addEventListener('DOMContentLoaded', function () {
             task.classList.remove(className);
         }
     }
+
+    function toLocalStorage(key, obj) {
+        var value = JSON.stringify(obj);
+        localStorage.setItem(key, value);
+    }
+
     
+
 
 });
