@@ -37,12 +37,14 @@ body, h1, h2, h3, form, input {
         padding: 20px;
     }
     &__progress {
+        display: block;
         width: 100%;
-        height: 20px;
+        height: 25px;
         margin-top: 20px;
         border: none;
         appearance: none;
         box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
+        
         
         &::-webkit-progress-bar {
             background-color: $color-gray-light;
@@ -56,10 +58,12 @@ body, h1, h2, h3, form, input {
         &::-webkit-progress-value {
             background-color: $color-main;
             background-image: linear-gradient(left, $color-main, $color-second);
+            transition: all 0.3s linear;
         }
         &::-moz-progress-value {
             background-color: $color-main;
             background-image: linear-gradient(left, $color-main, $color-second);
+            transition: width 0.3s linear;
         }
     }
 }
