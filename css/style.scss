@@ -51,18 +51,15 @@ body, h1, h2, h3, form, input {
             border-radius: 0;
         }
         &::-moz-progress-bar {
-            background-color: $color-gray-light;
             background-color: $color-main;
+            background-image: -moz-linear-gradient(left, $color-main, $color-second);
             border-radius: 0;
         }
         &::-webkit-progress-value {
-            background-color: $color-main;
             background-image: linear-gradient(left, $color-main, $color-second);
             transition: all 0.3s linear;
         }
         &::-moz-progress-value {
-            background-color: $color-main;
-            background-image: linear-gradient(left, $color-main, $color-second);
             transition: width 0.3s linear;
         }
     }
@@ -85,6 +82,7 @@ body, h1, h2, h3, form, input {
         border-radius: 0;
         box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
         transition: box-shadow 0.2s ease-in;
+        -webkit-appearance: none;
         &::placeholder {
             font-size: inherit;
         }

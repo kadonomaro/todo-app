@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Simple to-do list application for desktop and mobile devices">
+    <meta name="theme-color" content="#2fb6cf">
+
+    <link rel="icon" sizes="192x192" href="image/icon-192.png">
+    <link rel="icon" sizes="32x32" href="image/icon-32.png">
+
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>To Do List - Application</title>
@@ -18,7 +24,7 @@
             <form action="#" class="todo__tasks js-task-list">
                 <div class="task js-add-task">
                     <input type="text" class="task__input js-task-name" placeholder="Add task">
-                    <button class="task__button js-task-button"></button>
+                    <button class="task__button js-task-button" aria-label="add new task"></button>
                 </div>
                 <div class="task task--hidden task--theme-second js-task">
                     <label>
@@ -26,7 +32,7 @@
                         <span class="task__check-fake task__button"></span>
                     </label>
                     <input type="text" class="task__input" readonly>
-                    <button class="task__button task__button--closing js-close-button"></button>
+                    <button class="task__button task__button--closing js-close-button" aria-label="close task"></button>
                 </div>
 
                 
