@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-
+    /* LOADING TASK FROM LOCAL-STORAGE*/
     function loadTasks() {
         taskCount += localStorage.getItem('task_count');
         taskMaxCount = localStorage.getItem('task_max_count');
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
+    
     function removeTask(task, taskList) {
         taskList.removeChild(task);
     }

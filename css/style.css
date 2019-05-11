@@ -40,6 +40,8 @@ body, h1, h2, h3, form, input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
 }
 
 .task:not(:last-child) {
@@ -198,6 +200,16 @@ body, h1, h2, h3, form, input {
   100% {
     -webkit-transform: translate(0);
             transform: translate(0);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .page {
+    padding: 5px;
+    font-size: 14px;
+  }
+  .todo__body {
+    padding: 10px;
   }
 }
 /*# sourceMappingURL=style.css.map */

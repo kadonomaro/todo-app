@@ -41,6 +41,7 @@ body, h1, h2, h3, form, input {
 
 .task {
     display: flex;
+    transition: opacity 0.3s ease-in;
     &:not(:last-child) {
         margin-bottom: 20px;
     }
@@ -130,5 +131,18 @@ body, h1, h2, h3, form, input {
     }
     100% {
         transform: translate(0);
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .page {
+        padding: 5px;
+        font-size: 14px;
+    }
+    .todo {
+        &__body {
+            padding: 10px;
+        }
     }
 }
