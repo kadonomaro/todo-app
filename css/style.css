@@ -151,6 +151,10 @@ body, h1, h2, h3, form, input {
   opacity: 0.5;
 }
 
+.task--hidden {
+  display: none;
+}
+
 @-webkit-keyframes invalid {
   0% {
     -webkit-transform: translate(0, 0);

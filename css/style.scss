@@ -111,6 +111,9 @@ body, h1, h2, h3, form, input {
     text-decoration: line-through;
     opacity: 0.5;
 }
+.task--hidden {
+    display: none;
+}
 
 @keyframes invalid {
     0% {
