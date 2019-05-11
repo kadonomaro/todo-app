@@ -49,9 +49,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 removeTask(this, taskList);
                 delete taskInfo['ID_' + this.dataset.taskID];
                 toLocalStorage('task_info', taskInfo);
+                progressBar.max = Object.keys(taskInfo).length;
 
                 if (this.children[0].children[0].checked) {
                     checkedTaskCount--;
+                    progressBar.value = checkedTaskCount;
                     localStorage.setItem('checked_task_count', checkedTaskCount);
                 }
 
@@ -59,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     taskCount = 0;
                     localStorage.setItem('task_count', taskCount);
                 }
-                progressBar.max = Object.keys(taskInfo).length;
+                
             }
             /* COMPLETION TASK*/
             if (evt.target.classList.contains('js-complete-button')) {
@@ -134,13 +136,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 newTask.addEventListener('click', function (evt) {
                     /* CLOSING TASK*/
                     if (evt.target.classList.contains('js-close-button')) {
-
                         removeTask(this, taskList);
                         delete taskInfo['ID_' + this.dataset.taskID];
                         toLocalStorage('task_info', taskInfo);
+                        progressBar.max = Object.keys(taskInfo).length;
 
                         if (this.children[0].children[0].checked) {
                             checkedTaskCount--;
+                            progressBar.value = checkedTaskCount;
                             localStorage.setItem('checked_task_count', checkedTaskCount);
                         }
 
@@ -148,11 +151,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             taskCount = 0;
                             localStorage.setItem('task_count', taskCount);
                         }
-                        progressBar.max = Object.keys(taskInfo).length;
+                        
                     }
                     /* COMPLETION TASK*/
                     if (evt.target.classList.contains('js-complete-button')) {
-
                         completeTask(this, 'task--completed', evt.target);
         
                         if (this.children[0].children[0].checked) {
@@ -162,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                         progressBar.value = checkedTaskCount;
                         localStorage.setItem('checked_task_count', checkedTaskCount);
+
 
                         taskInfo['ID_' + this.dataset.taskID] = {
                             id: this.dataset.taskID,
