@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var taskList = document.querySelector('.js-task-list');
     var addTask = document.querySelector('.js-add-task');
-    var taskButton = taskList.querySelector('.js-task-button');
+    var addTaskButton = taskList.querySelector('.js-task-button');
     var taskName = taskList.querySelector('.js-task-name');
     var task = document.querySelector('.js-task');
     var taskCount = 0;
@@ -11,12 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /*CREATING NEW TASK*/
-    taskButton.addEventListener('click', function (evt) {
+    addTaskButton.addEventListener('click', function (evt) {
         evt.preventDefault();
         var newTask = task.cloneNode(true);
         newTask.classList.remove('task--hidden');
         if (taskName.value !== '') {
             taskCount++;
+            localStorage.setItem('task_count', taskCount);
             newTask.children[1].value = taskName.value;
             newTask.dataset.taskID = taskCount;
 
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
             toLocalStorage('task_info', taskInfo);
 
             taskName.value = '';
+            taskName.focus();
             taskList.appendChild(newTask);
         } else {
             addTask.classList.add('task--invalid');
@@ -43,6 +45,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 removeTask(this, taskList);
                 delete taskInfo['ID_' + this.dataset.taskID];
                 toLocalStorage('task_info', taskInfo);
+                if (localStorage.getItem('task_info') === '{}') {
+                    taskCount = 0;
+                    localStorage.setItem('task_count', taskCount);
+                }
 
             }
             /* COMPLETION TASK*/
@@ -61,49 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     loadTasks();
 
-    /* LOADING TASKS FROM LOCALSTORAGE*/
-    function loadTasks() {
-        var localTaskInfo = localStorage.getItem('task_info');
-        localTaskInfo = JSON.parse(localTaskInfo);
-
-        for (var key in localTaskInfo) {
-            if (localTaskInfo.hasOwnProperty(key)) {
-                var newTask = task.cloneNode(true);
-                newTask.classList.remove('task--hidden');
-                newTask.dataset.taskID = localTaskInfo[key].id;
-                newTask.children[1].value = localTaskInfo[key].title;
-                if (localTaskInfo[key].checked) {
-                    newTask.classList.add('task--completed');
-                    newTask.children[0].children[0].checked = true;
-                }
-                taskList.appendChild(newTask);
-                
-                newTask.addEventListener('click', function (evt) {
-                    /* CLOSING TASK*/
-                    if (evt.target.classList.contains('js-close-button')) {
-                        removeTask(this, taskList);
-                        delete localTaskInfo['ID_' + this.dataset.taskID];
-                        toLocalStorage('task_info', localTaskInfo);
-        
-                    }
-                    /* COMPLETION TASK*/
-                    if (evt.target.classList.contains('js-complete-button')) {
-                        completeTask(this, 'task--completed', evt.target);
-        
-                        localTaskInfo['ID_' + this.dataset.taskID] = {
-                            id: this.dataset.taskID,
-                            title: this.children[1].value,
-                            checked: this.children[0].children[0].checked
-                        };
-                        toLocalStorage('task_info', localTaskInfo);
-                    }
-                });
-            }
-        }
-
-
-    }
-
 
     function removeTask(task, taskList) {
         taskList.removeChild(task);
@@ -118,12 +81,63 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+
     function toLocalStorage(key, obj) {
         var value = JSON.stringify(obj);
         localStorage.setItem(key, value);
     }
 
+
+    function loadTasks() {
+        taskInfo = localStorage.getItem('task_info');
+        taskInfo = JSON.parse(taskInfo);
+        taskCount = localStorage.getItem('task_count');
+        if (taskInfo === null) {
+            taskInfo = {};
+        }
+
+        for (var key in taskInfo) {
+
+            if (taskInfo.hasOwnProperty(key)) {
+                var newTask = task.cloneNode(true);
+                newTask.classList.remove('task--hidden');
+                newTask.dataset.taskID = taskInfo[key].id;
+                newTask.children[1].value = taskInfo[key].title;
+
+                if (taskInfo[key].checked) {
+                    newTask.classList.add('task--completed');
+                    newTask.children[0].children[0].checked = true;
+                }
+                taskList.appendChild(newTask);
+                
+                newTask.addEventListener('click', function (evt) {
+                    /* CLOSING TASK*/
+                    if (evt.target.classList.contains('js-close-button')) {
+                        removeTask(this, taskList);
+                        delete taskInfo['ID_' + this.dataset.taskID];
+                        toLocalStorage('task_info', taskInfo);
+                        console.log(taskInfo);
+                        if (localStorage.getItem('task_info') === '{}') {
+                            taskCount = 0;
+                            localStorage.setItem('task_count', taskCount);
+                        }
+        
+                    }
+                    /* COMPLETION TASK*/
+                    if (evt.target.classList.contains('js-complete-button')) {
+                        completeTask(this, 'task--completed', evt.target);
+        
+                        taskInfo['ID_' + this.dataset.taskID] = {
+                            id: this.dataset.taskID,
+                            title: this.children[1].value,
+                            checked: this.children[0].children[0].checked
+                        };
+                        toLocalStorage('task_info', taskInfo);
+                    }
+                });
+            }
+        }
+    }
+
     
-
-
 });
