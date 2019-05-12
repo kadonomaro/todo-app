@@ -348,7 +348,10 @@ body, h1, h2, h3, form, input {
 }
 
 .task--hidden {
-  display: none;
+  position: absolute;
+  width: 0;
+  height: 0;
+  clip: rect(1px 1px 1px 1px);
 }
 
 .task--theme-second .task__input {
@@ -436,11 +439,11 @@ body, h1, h2, h3, form, input {
   }
   .task__input {
     width: 100%;
-    padding: 4px 8px;
+    padding: 4px;
     border-width: 2px;
   }
   .task__input--price {
-    max-width: 50px;
+    max-width: 55px;
   }
   .task__button {
     width: 30px;

@@ -40,7 +40,6 @@ body, h1, h2, h3, form, input {
     }
     &__settings {
         position: absolute;
-        // display: none;
         z-index: 0;
         left: 50%;
         bottom: 0;
@@ -259,7 +258,11 @@ body, h1, h2, h3, form, input {
     filter: grayscale(0.7);
 }
 .task--hidden {
-    display: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+    clip: rect(1px 1px 1px 1px);
+    // visibility: hidden;
 }
 .task--theme-second .task__input {
     border-color: $color-second;
@@ -321,11 +324,11 @@ body, h1, h2, h3, form, input {
         flex-wrap: wrap;
         &__input {
             width: 100%;
-            padding: 4px 8px;
+            padding: 4px;
             border-width: 2px;
         }
         &__input--price {
-            max-width: 50px;
+            max-width: 55px;
         }
         &__button {
             width: 30px;
