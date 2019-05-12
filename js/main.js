@@ -6,15 +6,22 @@ document.addEventListener('DOMContentLoaded', function () {
     var addTask = document.querySelector('.js-add-task');
     var addTaskButton = taskList.querySelector('.js-task-button');
     var taskName = taskList.querySelector('.js-task-name');
+    var taskPrice = taskList.querySelector('.js-task-price');
     var task = document.querySelector('.js-task');
     var progressBar = document.querySelector('.js-progress');
+
     var taskCount = 0;
     var checkedTaskCount = 0;
     var taskInfo = {};
-    
+    var pricesArr = [];
+
+
+    loadTasks();
     settings.init();
     
-    settings.setSettingsOptions(optionProgressBar, optionProgressBar, progressBar);
+    settings.setSettingsOptions(optionProgressBar, optionProgressBar, progressBar, 'height');
+    settings.setSettingsOptions(optionPrice, optionPrice, taskPrice, 'display');
+    settings.setSettingsOptions(optionPrice, optionPrice, pricesArr, 'display', true);
     
     /*CREATING NEW TASK*/
     addTaskButton.addEventListener('click', function (evt) {
@@ -90,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    loadTasks();
+    
 
 
     function removeTask(task, taskList) {
@@ -137,6 +144,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     newTask.children[0].children[0].checked = true;
                 }
                 taskList.appendChild(newTask);
+                var newTaskInputPrice = newTask.querySelector('.js-price');
+                
+                pricesArr.push(newTaskInputPrice);
+                
                 
                 newTask.addEventListener('click', function (evt) {
                     /* CLOSING TASK*/

@@ -24,13 +24,51 @@ var settings = {
             }
         });
     },
-    setSettingsOptions: function (eventElement, option, element) {
+    setSettingsOptions: function (eventElement, option, element, cssProp, isArray = false) {
+        
         eventElement.addEventListener('input', function () {
-            if (option.checked) {
-                element.style.display = "block";
-            } else {
-                element.style.display = "none";
+            switch (cssProp) {
+
+                case 'display':
+                    
+                    switch (isArray) {
+                        case false:
+                            if (option.checked) {
+                                element.style.display = "block";
+                            } else {
+                                element.style.display = "none";
+                            }
+                            
+                            break;
+                        
+                        case true:
+                            if (option.checked) {
+                                element.forEach(function(elem) {
+                                    elem.style.display = "block";
+                                });
+                            } else {
+                                element.forEach(function(elem) {
+                                    elem.style.display = "none";
+                                });
+                            }
+                            break;
+                    
+                    }
+
+                    break;
+                
+                case 'height':
+                    var elementHeight = element.style.height;
+                    if (option.checked) {
+                        element.style.height = elementHeight;
+                    } else {
+                        element.style.height = '0';
+                    }
+                    break;
+            
             }
+
+
         });
     }
 };

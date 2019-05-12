@@ -21,7 +21,7 @@
             <h1 class="todo__title">To Do App</h1>
             <button class="settings-toggle js-settings-toggle" aria-label="settings"></button>
             <div class="todo__settings settings js-settings">
-                <form action="" class="settings__form">
+                <form action="#" class="settings__form">
                     <label class="settings__label">
                         <input type="checkbox" name="option-progress-bar" class="settings__check js-settings-option" checked>
                         <span class="settings__check-fake"></span>
@@ -49,6 +49,7 @@
             <form action="#" class="todo__tasks js-task-list">
                 <div class="task js-add-task">
                     <input type="text" class="task__input js-task-name" placeholder="Add task">
+                    <input type="text" class="task__input task__input--price js-task-price" placeholder="Set price">
                     <button class="task__button js-task-button" aria-label="add new task"></button>
                 </div>
                 <div class="task task--hidden task--theme-second js-task">
@@ -57,6 +58,7 @@
                         <span class="task__check-fake task__button"></span>
                     </label>
                     <input type="text" class="task__input" readonly>
+                    <input type="text" class="task__input task__input--price js-price" readonly>
                     <button class="task__button task__button--closing js-close-button" aria-label="close task"></button>
                 </div>
 

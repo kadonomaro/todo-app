@@ -71,6 +71,8 @@ body, h1, h2, h3, form, input {
           appearance: none;
   -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+  -webkit-transition: height 0.2s ease-in;
+  transition: height 0.2s ease-in;
 }
 
 .todo__progress::-webkit-progress-bar {
@@ -243,10 +245,10 @@ body, h1, h2, h3, form, input {
   border-radius: 0;
   -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
-  -webkit-transition: -webkit-box-shadow 0.2s ease-in;
-  transition: -webkit-box-shadow 0.2s ease-in;
-  transition: box-shadow 0.2s ease-in;
-  transition: box-shadow 0.2s ease-in, -webkit-box-shadow 0.2s ease-in;
+  -webkit-transition: width 0.2s linear, -webkit-box-shadow 0.2s ease-in;
+  transition: width 0.2s linear, -webkit-box-shadow 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in, width 0.2s linear;
+  transition: box-shadow 0.2s ease-in, width 0.2s linear, -webkit-box-shadow 0.2s ease-in;
   -webkit-appearance: none;
 }
 
@@ -269,6 +271,11 @@ body, h1, h2, h3, form, input {
 .task__input:focus {
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
           box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.task__input--price {
+  display: none;
+  max-width: 70px;
 }
 
 .task__button {
@@ -408,13 +415,37 @@ body, h1, h2, h3, form, input {
             box-shadow: none;
   }
   .todo__settings {
-    width: 85%;
+    width: 90%;
   }
   .todo__body {
-    padding: 10px;
+    padding: 5px;
+  }
+  .settings__form {
+    text-align: center;
   }
   .settings__title {
     vertical-align: middle;
+  }
+  .settings__check-fake {
+    display: block;
+    margin: 0 auto;
+  }
+  .task {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  .task__input {
+    width: 100%;
+    padding: 4px 8px;
+    border-width: 2px;
+  }
+  .task__input--price {
+    max-width: 50px;
+  }
+  .task__button {
+    width: 30px;
+    height: 30px;
+    background-size: 70%;
   }
   .task:not(:last-child) {
     margin-bottom: 10px;
