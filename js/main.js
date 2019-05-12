@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskPriceInput = task.querySelector('.js-price');
     pricesArr.push(taskPriceInput);
 
+
+    
     loadTasks();
     settings.init();
     

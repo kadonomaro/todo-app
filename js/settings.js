@@ -25,8 +25,11 @@ var settings = {
         });
     },
     setSettingsOptions: function (eventElement, option, element, cssProp, isArray = false) {
-        
+        if (!isArray && cssProp === 'height') {
+            var elementHeight = element.clientHeight;
+        }
         eventElement.addEventListener('input', function () {
+            
             switch (cssProp) {
 
                 case 'display':
@@ -58,9 +61,8 @@ var settings = {
                     break;
                 
                 case 'height':
-                    var elementHeight = element.style.height;
                     if (option.checked) {
-                        element.style.height = elementHeight;
+                        element.style.height = elementHeight + 'px';
                     } else {
                         element.style.height = '0';
                     }
