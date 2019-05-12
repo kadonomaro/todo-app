@@ -46,6 +46,10 @@ body, h1, h2, h3, form, input {
   height: 50px;
   -webkit-transform: translate(-50%, -10%);
           transform: translate(-50%, -10%);
+  -webkit-transition: -webkit-transform 0.3s ease-in;
+  transition: -webkit-transform 0.3s ease-in;
+  transition: transform 0.3s ease-in;
+  transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
 }
 
 .todo__settings--active {
@@ -94,7 +98,9 @@ body, h1, h2, h3, form, input {
 }
 
 .settings {
-  background-color: #5ebe7f;
+  background-color: #81d3e3;
+  border: 3px solid #2fb6cf;
+  border-top: 0;
   -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
 }
@@ -106,8 +112,24 @@ body, h1, h2, h3, form, input {
   left: 10px;
   width: 30px;
   height: 30px;
+  background-color: transparent;
+  background-image: url("../image/settings.svg");
+  border: 0;
+  border-radius: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transition: -webkit-box-shadow 0.2s ease-in, -webkit-transform 0.3s linear;
+  transition: -webkit-box-shadow 0.2s ease-in, -webkit-transform 0.3s linear;
+  transition: box-shadow 0.2s ease-in, transform 0.3s linear;
+  transition: box-shadow 0.2s ease-in, transform 0.3s linear, -webkit-box-shadow 0.2s ease-in, -webkit-transform 0.3s linear;
+  cursor: pointer;
+}
+
+.settings-toggle--active {
+  -webkit-transform: translateY(-50%) translateX(100%) rotate(180deg);
+          transform: translateY(-50%) translateX(100%) rotate(180deg);
 }
 
 .task {
@@ -302,6 +324,11 @@ body, h1, h2, h3, form, input {
   }
   .todo__body {
     padding: 10px;
+  }
+  .settings-toggle {
+    width: 25px;
+    height: 25px;
+    left: 5px;
   }
   .task:not(:last-child) {
     margin-bottom: 10px;

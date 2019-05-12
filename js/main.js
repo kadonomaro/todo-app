@@ -1,3 +1,5 @@
+import settings from "./settings.js";
+
 document.addEventListener('DOMContentLoaded', function () {
 
     var taskList = document.querySelector('.js-task-list');
@@ -9,7 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskCount = 0;
     var checkedTaskCount = 0;
     var taskInfo = {};
-
+    
+    settings.init();
     
     /*CREATING NEW TASK*/
     addTaskButton.addEventListener('click', function (evt) {
