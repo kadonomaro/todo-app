@@ -14,22 +14,43 @@ body, h1, h2, h3, form, input {
   background-color: #e2e2e2;
   -webkit-box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
           box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 }
 
 .todo__header {
+  position: relative;
+  z-index: 2;
   height: 50px;
   text-align: center;
-  background-color: #2fb6cf;
 }
 
 .todo__title {
+  position: relative;
+  z-index: 2;
   font-size: 36px;
   line-height: 50px;
   font-weight: normal;
+  background-color: #2fb6cf;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+.todo__settings {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 0;
+  width: 80%;
+  height: 50px;
+  -webkit-transform: translate(-50%, -10%);
+          transform: translate(-50%, -10%);
+}
+
+.todo__settings--active {
+  -webkit-transform: translate(-50%, 100%);
+          transform: translate(-50%, 100%);
 }
 
 .todo__body {
@@ -56,13 +77,13 @@ body, h1, h2, h3, form, input {
 
 .todo__progress::-moz-progress-bar {
   background-color: #2fb6cf;
-  background-image: -moz-linear-gradient(left, #2fb6cf, #5ebe7f);
+  background-image: -moz-linear-gradient(to left, #2fb6cf, #5ebe7f);
   border-radius: 0;
 }
 
 .todo__progress::-webkit-progress-value {
-  background-image: -webkit-gradient(linear, left top, right top, from(#2fb6cf), to(#5ebe7f));
-  background-image: linear-gradient(left, #2fb6cf, #5ebe7f);
+  background-image: -webkit-gradient(linear, right top, left top, from(#2fb6cf), to(#5ebe7f));
+  background-image: linear-gradient(to left, #2fb6cf, #5ebe7f);
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
 }
@@ -70,6 +91,23 @@ body, h1, h2, h3, form, input {
 .todo__progress::-moz-progress-value {
   -webkit-transition: width 0.3s linear;
   transition: width 0.3s linear;
+}
+
+.settings {
+  background-color: #5ebe7f;
+  -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.settings-toggle {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 .task {
@@ -255,11 +293,15 @@ body, h1, h2, h3, form, input {
 
 @media screen and (max-width: 600px) {
   .page {
-    padding: 5px 7px;
+    padding: 0;
     font-size: 14px;
   }
+  .todo {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
   .todo__body {
-    padding: 7px;
+    padding: 10px;
   }
   .task:not(:last-child) {
     margin-bottom: 10px;
