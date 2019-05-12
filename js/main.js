@@ -1,4 +1,4 @@
-import settings from "./settings.js";
+import settings, { optionProgressBar, optionDate, optionCount, optionPrice } from "./settings.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskInfo = {};
     
     settings.init();
+    
+    settings.setSettingsOptions(optionProgressBar, optionProgressBar, progressBar);
     
     /*CREATING NEW TASK*/
     addTaskButton.addEventListener('click', function (evt) {
