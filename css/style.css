@@ -43,7 +43,6 @@ body, h1, h2, h3, form, input {
   left: 50%;
   bottom: 0;
   width: 80%;
-  height: 50px;
   -webkit-transform: translate(-50%, -10%);
           transform: translate(-50%, -10%);
   -webkit-transition: -webkit-transform 0.3s ease-in;
@@ -98,11 +97,30 @@ body, h1, h2, h3, form, input {
 }
 
 .settings {
-  background-color: #81d3e3;
+  background-color: rgba(129, 211, 227, 0.9);
   border: 3px solid #2fb6cf;
   border-top: 0;
-  -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
-          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -webkit-box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
+          box-shadow: inset 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
+}
+
+.settings__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.settings__label {
+  position: relative;
+  display: block;
+  width: 50%;
+  margin: 10px 0;
 }
 
 .settings-toggle {
@@ -325,16 +343,19 @@ body, h1, h2, h3, form, input {
   .todo__body {
     padding: 10px;
   }
-  .settings-toggle {
-    width: 25px;
-    height: 25px;
-    left: 5px;
-  }
   .task:not(:last-child) {
     margin-bottom: 10px;
   }
   .task:first-child {
     margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .settings-toggle {
+    width: 25px;
+    height: 25px;
+    left: 5px;
   }
 }
 /*# sourceMappingURL=style.css.map */
