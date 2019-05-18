@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskPriceInput = task.querySelector('.js-price');
     pricesArr.push(taskPriceInput);
 
-
     
     loadTasks();
     settings.init();
@@ -43,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 title: newTask.children[1].value,
                 checked: newTask.children[0].children[0].checked
             };
-            toLocalStorage('task_info', taskInfo);
+            saveToLocalStorage('task_info', taskInfo);
 
             progressBar.max = Object.keys(taskInfo).length;
 
@@ -62,46 +61,17 @@ document.addEventListener('DOMContentLoaded', function () {
             /* CLOSING TASK*/
             if (evt.target.classList.contains('js-close-button')) {
 
-                removeTask(this, taskList);
-                delete taskInfo['ID_' + this.dataset.taskID];
-                toLocalStorage('task_info', taskInfo);
-                progressBar.max = Object.keys(taskInfo).length;
-
-                if (this.children[0].children[0].checked) {
-                    checkedTaskCount--;
-                    progressBar.value = checkedTaskCount;
-                    localStorage.setItem('checked_task_count', checkedTaskCount);
-                }
-
-                if (localStorage.getItem('task_info') === '{}') {
-                    taskCount = 0;
-                    localStorage.setItem('task_count', taskCount);
-                }
+                closeTask(taskList, this);
                 
             }
             /* COMPLETION TASK*/
             if (evt.target.classList.contains('js-complete-button')) {
-                // completeTask(this, 'task--completed', evt.target);
 
-                if (this.children[0].children[0].checked) {
-                    checkedTaskCount++;
-                } else {
-                    checkedTaskCount--;
-                }
-                progressBar.value = checkedTaskCount;
-                localStorage.setItem('checked_task_count', checkedTaskCount);
+                completeTask(evt.target, this, 'task--completed');
 
-                taskInfo['ID_' + this.dataset.taskID] = {
-                    id: this.dataset.taskID,
-                    title: this.children[1].value,
-                    checked: this.children[0].children[0].checked
-                };
-                toLocalStorage('task_info', taskInfo);
             }
         });
     });
-
-    
 
 
     function removeTask(task, taskList) {
@@ -109,16 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    // function completeTask(task, className, completeButton) {
-    //     if (completeButton.checked) {
-    //         task.classList.add(className);
-    //     } else {
-    //         task.classList.remove(className);
-    //     }
-    // }
-
-
-    function toLocalStorage(key, obj) {
+    function saveToLocalStorage(key, obj) {
         var value = JSON.stringify(obj);
         localStorage.setItem(key, value);
     }
@@ -138,14 +99,17 @@ document.addEventListener('DOMContentLoaded', function () {
         for (var key in taskInfo) {
 
             if (taskInfo.hasOwnProperty(key)) {
+
                 var newTask = task.cloneNode(true);
                 newTask.classList.remove('task--hidden');
                 newTask.dataset.taskID = taskInfo[key].id;
                 newTask.children[1].value = taskInfo[key].title;
 
                 if (taskInfo[key].checked) {
+
                     newTask.classList.add('task--completed');
                     newTask.children[0].children[0].checked = true;
+
                 }
                 taskList.appendChild(newTask);
                 var newTaskInputPrice = newTask.querySelector('.js-price');
@@ -156,30 +120,46 @@ document.addEventListener('DOMContentLoaded', function () {
                 newTask.addEventListener('click', function (evt) {
                     /* CLOSING TASK*/
                     if (evt.target.classList.contains('js-close-button')) {
-                        removeTask(this, taskList);
-                        delete taskInfo['ID_' + this.dataset.taskID];
-                        toLocalStorage('task_info', taskInfo);
-                        progressBar.max = Object.keys(taskInfo).length;
 
-                        if (this.children[0].children[0].checked) {
-                            checkedTaskCount--;
-                            progressBar.value = checkedTaskCount;
-                            localStorage.setItem('checked_task_count', checkedTaskCount);
-                        }
+                        closeTask(taskList, this);
 
-                        if (localStorage.getItem('task_info') === '{}') {
-                            taskCount = 0;
-                            localStorage.setItem('task_count', taskCount);
-                        }
-                        
                     }
                     /* COMPLETION TASK*/
                     if (evt.target.classList.contains('js-complete-button')) {
-                        toCompleteTask(evt.target, this, 'task--completed');
+
+                        completeTask(evt.target, this, 'task--completed');
+
                     }
                 });
             }
         }
+    }
+
+    /**
+     * 
+     * @param {HTMLElement} taskList 
+     * @param {HTMLElement} task 
+     * @param {HTMLElement} checkedButton
+     */
+    function closeTask(taskList, task) {
+        var checkedButton = task.querySelector('.js-complete-button');
+
+        removeTask(task, taskList);
+        delete taskInfo['ID_' + task.dataset.taskID];
+        saveToLocalStorage('task_info', taskInfo);
+        progressBar.max = Object.keys(taskInfo).length;
+
+        if (checkedButton.checked) {
+            checkedTaskCount--;
+            progressBar.value = checkedTaskCount;
+            localStorage.setItem('checked_task_count', checkedTaskCount);
+        }
+
+        if (localStorage.getItem('task_info') === '{}') {
+            taskCount = 0;
+            localStorage.setItem('task_count', taskCount);
+        }
+        
     }
 
 
@@ -189,7 +169,8 @@ document.addEventListener('DOMContentLoaded', function () {
      * @param {HTMLElement} task 
      * @param {string} className 
      */
-    function toCompleteTask(completeButton, task, className) {
+    function completeTask(completeButton, task, className) {
+        var taskTitle = task.querySelector('[name=task-title]');
 
         if (completeButton.checked) {
             task.classList.add(className);
@@ -205,11 +186,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         taskInfo['ID_' + task.dataset.taskID] = {
             id: task.dataset.taskID,
-            title: task.children[1].value,
+            title: taskTitle.value,
             checked: completeButton.checked
         };
 
-        toLocalStorage('task_info', taskInfo);
+        saveToLocalStorage('task_info', taskInfo);
 
     }
 
