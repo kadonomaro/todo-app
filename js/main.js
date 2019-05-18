@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             /* COMPLETION TASK*/
             if (evt.target.classList.contains('js-complete-button')) {
-                completeTask(this, 'task--completed', evt.target);
+                // completeTask(this, 'task--completed', evt.target);
 
                 if (this.children[0].children[0].checked) {
                     checkedTaskCount++;
@@ -109,13 +109,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function completeTask(task, className, completeButton) {
-        if (completeButton.checked) {
-            task.classList.add(className);
-        } else {
-            task.classList.remove(className);
-        }
-    }
+    // function completeTask(task, className, completeButton) {
+    //     if (completeButton.checked) {
+    //         task.classList.add(className);
+    //     } else {
+    //         task.classList.remove(className);
+    //     }
+    // }
 
 
     function toLocalStorage(key, obj) {
@@ -175,23 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     /* COMPLETION TASK*/
                     if (evt.target.classList.contains('js-complete-button')) {
-                        completeTask(this, 'task--completed', evt.target);
-        
-                        if (this.children[0].children[0].checked) {
-                            checkedTaskCount++;
-                        } else {
-                            checkedTaskCount--;
-                        }
-                        progressBar.value = checkedTaskCount;
-                        localStorage.setItem('checked_task_count', checkedTaskCount);
-
-
-                        taskInfo['ID_' + this.dataset.taskID] = {
-                            id: this.dataset.taskID,
-                            title: this.children[1].value,
-                            checked: this.children[0].children[0].checked
-                        };
-                        toLocalStorage('task_info', taskInfo);
+                        toCompleteTask(evt.target, this, 'task--completed');
                     }
                 });
             }
@@ -199,6 +183,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-});
+    /**
+     * 
+     * @param {HTMLElement} completeButton 
+     * @param {HTMLElement} task 
+     * @param {string} className 
+     */
+    function toCompleteTask(completeButton, task, className) {
 
+        if (completeButton.checked) {
+            task.classList.add(className);
+            checkedTaskCount++;
+        } else {
+            task.classList.remove(className);
+            checkedTaskCount--;
+        }
+
+        progressBar.value = checkedTaskCount;
+
+        localStorage.setItem('checked_task_count', checkedTaskCount);
+
+        taskInfo['ID_' + task.dataset.taskID] = {
+            id: task.dataset.taskID,
+            title: task.children[1].value,
+            checked: completeButton.checked
+        };
+
+        toLocalStorage('task_info', taskInfo);
+
+    }
+
+});
 
