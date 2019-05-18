@@ -146,7 +146,7 @@ body, h1, h2, h3, form, input {
   outline: auto 5px -webkit-focus-ring-color;
 }
 
-.settings__check:active + .settings__check-fake::before {
+.settings__check:active:enabled + .settings__check-fake::before {
   background-color: #e6e6e6;
 }
 
@@ -157,6 +157,19 @@ body, h1, h2, h3, form, input {
 .settings__check:checked + .settings__check-fake::before {
   -webkit-transform: translateY(-50%) translateX(20px);
           transform: translateY(-50%) translateX(20px);
+}
+
+.settings__check:disabled + .settings__check-fake {
+  opacity: 0.7;
+}
+
+.settings__check:disabled ~ .settings__title {
+  text-decoration: line-through;
+  opacity: 0.7;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .settings__check-fake {
@@ -352,6 +365,7 @@ body, h1, h2, h3, form, input {
   width: 0;
   height: 0;
   clip: rect(1px 1px 1px 1px);
+  visibility: hidden;
 }
 
 .task--theme-second .task__input {

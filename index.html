@@ -17,6 +17,7 @@
 <body class="page">
 
     <div class="todo">
+
         <header class="todo__header">
             <h1 class="todo__title">To Do App</h1>
             <button class="settings-toggle js-settings-toggle" aria-label="settings"></button>
@@ -28,12 +29,12 @@
                         <span class="settings__title">Progress bar</span>
                     </label>
                     <label class="settings__label">
-                        <input type="checkbox" name="option-date" class="settings__check js-settings-option">
+                        <input type="checkbox" name="option-date" class="settings__check js-settings-option" disabled>
                         <span class="settings__check-fake"></span>
                         <span class="settings__title">Tasks dates</span>
                     </label>
                     <label class="settings__label">
-                        <input type="checkbox" name="option-count" class="settings__check js-settings-option">
+                        <input type="checkbox" name="option-count" class="settings__check js-settings-option" disabled>
                         <span class="settings__check-fake"></span>
                         <span class="settings__title">Tasks count</span>
                     </label>
@@ -61,14 +62,13 @@
                     <input type="text" class="task__input task__input--price js-price" readonly>
                     <button class="task__button task__button--closing js-close-button" aria-label="close task"></button>
                 </div>
-
-                
             </form>
-            <progress class="todo__progress js-progress">
+
+            <progress class="todo__progress js-progress"></progress>
             
         </div>
 
-    </div>
+    </div><!--todo-->
     
     <script src="js/main.js" type="module"></script>
 </body>
