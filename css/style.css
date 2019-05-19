@@ -26,7 +26,7 @@ body, h1, h2, h3, form, input {
 
 .todo__title {
   position: relative;
-  z-index: 2;
+  z-index: 11;
   font-size: 36px;
   line-height: 50px;
   font-weight: normal;
@@ -39,7 +39,7 @@ body, h1, h2, h3, form, input {
 
 .todo__settings {
   position: absolute;
-  z-index: 0;
+  z-index: 10;
   left: 50%;
   bottom: 0;
   width: 75%;
@@ -207,7 +207,7 @@ body, h1, h2, h3, form, input {
 
 .settings-toggle {
   position: absolute;
-  z-index: 5;
+  z-index: 15;
   top: 50%;
   left: 10px;
   width: 30px;
@@ -239,6 +239,7 @@ body, h1, h2, h3, form, input {
 }
 
 .task {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -249,7 +250,18 @@ body, h1, h2, h3, form, input {
 }
 
 .task:not(:last-child) {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.task__date {
+  position: absolute;
+  z-index: 1;
+  top: -50%;
+  left: 46px;
+  padding: 3px;
+  font-size: 0.8em;
+  font-weight: bold;
+  background-color: #5ebe7f;
 }
 
 .task__input {
@@ -387,6 +399,10 @@ body, h1, h2, h3, form, input {
   background-color: #5ebe7f;
 }
 
+.task--date-active:not(:last-child) {
+  margin-bottom: 30px;
+}
+
 @-webkit-keyframes invalid {
   0% {
     -webkit-transform: translate(0, 0);
@@ -462,6 +478,17 @@ body, h1, h2, h3, form, input {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
   }
+  .task:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  .task:first-child {
+    margin-bottom: 30px;
+  }
+  .task__date {
+    top: -60%;
+    left: 36px;
+    padding: 2px;
+  }
   .task__input {
     width: 100%;
     padding: 4px;
@@ -474,12 +501,6 @@ body, h1, h2, h3, form, input {
     width: 30px;
     height: 30px;
     background-size: 70%;
-  }
-  .task:not(:last-child) {
-    margin-bottom: 10px;
-  }
-  .task:first-child {
-    margin-bottom: 20px;
   }
 }
 

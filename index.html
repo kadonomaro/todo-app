@@ -29,7 +29,7 @@
                         <span class="settings__title">Progress bar</span>
                     </label>
                     <label class="settings__label">
-                        <input type="checkbox" name="option-date" class="settings__check js-settings-option" disabled>
+                        <input type="checkbox" name="option-date" class="settings__check js-settings-option" checked>
                         <span class="settings__check-fake"></span>
                         <span class="settings__title">Tasks dates</span>
                     </label>
@@ -54,7 +54,8 @@
                     <input type="text" class="task__input task__input--price js-task-price" placeholder="Set price">
                     <button class="task__button js-task-button" aria-label="add new task"></button>
                 </div>
-                <div class="task task--hidden task--theme-second js-task">
+                <div class="task task--hidden task--theme-second js-task task--date-active">
+                    <time class="task__date js-date" datetime="">15 april 2019</time>
                     <label>
                         <input class="task__check js-complete-button" type="checkbox" name="task-check">
                         <span class="task__check-fake task__button"></span>

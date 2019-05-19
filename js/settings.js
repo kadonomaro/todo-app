@@ -24,7 +24,7 @@ var settings = {
             }
         });
     },
-    setSettingsOptions: function (eventElement, option, element, cssProp, isArray = false) {
+    setSettingsOptions: function (eventElement, option, element, cssProp, isArray = false, log = false) {
         if (!isArray && cssProp === 'height') {
             var elementHeight = element.clientHeight;
         }

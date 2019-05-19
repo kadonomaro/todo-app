@@ -31,7 +31,7 @@ body, h1, h2, h3, form, input {
     }
     &__title {
         position: relative;
-        z-index: 2;
+        z-index: 11;
         font-size: 36px;
         line-height: 50px;
         font-weight: normal;
@@ -40,7 +40,7 @@ body, h1, h2, h3, form, input {
     }
     &__settings {
         position: absolute;
-        z-index: 0;
+        z-index: 10;
         left: 50%;
         bottom: 0;
         width: 75%;
@@ -166,7 +166,7 @@ body, h1, h2, h3, form, input {
 }
 .settings-toggle {
     position: absolute;
-    z-index: 5;
+    z-index: 15;
     top: 50%;
     left: 10px;
     width: 30px;
@@ -190,10 +190,22 @@ body, h1, h2, h3, form, input {
 
 
 .task {
+    position: relative;
     display: flex;
     transition: opacity 0.2s ease-in, filter 0.2s ease-in, transform 0.3s ease-in;
     &:not(:last-child) {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+    }
+    &__date {
+        position: absolute;
+        z-index: 1;
+        top: -50%;
+        left: 46px;
+        padding: 3px;
+        font-size: 0.8em;
+        font-weight: bold;
+        background-color: $color-second;
+
     }
     &__input {
         flex: 1;
@@ -285,6 +297,11 @@ body, h1, h2, h3, form, input {
 .task--theme-second .task__button {
     background-color: $color-second;
 }
+.task--date-active {
+    &:not(:last-child) {
+        margin-bottom: 30px;
+    }
+}
 
 
 
@@ -337,6 +354,17 @@ body, h1, h2, h3, form, input {
 
     .task {
         flex-wrap: wrap;
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+        &:first-child {
+            margin-bottom: 30px;
+        }
+        &__date {
+            top: -60%;
+            left: 36px;
+            padding: 2px;
+        }
         &__input {
             width: 100%;
             padding: 4px;
@@ -349,12 +377,6 @@ body, h1, h2, h3, form, input {
             width: 30px;
             height: 30px;
             background-size: 70%;
-        }
-        &:not(:last-child) {
-            margin-bottom: 10px;
-        }
-        &:first-child {
-            margin-bottom: 20px;
         }
     }
 }

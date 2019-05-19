@@ -17,18 +17,24 @@ document.addEventListener('DOMContentLoaded', function () {
         taskCount: 0,
         checkedTaskCount: 0
     };
-    var pricesArr = [];
 
+    /* Arrays of price and date HTMLElements for push to them on create it */
+    var pricesArr = [];
+    var datesArr = [];
+    var taskDate = task.querySelector('.js-date');
     var taskPriceInput = task.querySelector('.js-price');
     pricesArr.push(taskPriceInput);
+    datesArr.push(taskDate);
 
     
     loadTasks();
     settings.init();
-    
     settings.setSettingsOptions(optionProgressBar, optionProgressBar, progressBar, 'height');
     settings.setSettingsOptions(optionPrice, optionPrice, taskPrice, 'display');
     settings.setSettingsOptions(optionPrice, optionPrice, pricesArr, 'display', true);
+    settings.setSettingsOptions(optionDate, optionDate, datesArr, 'display', true);
+
+
     
     /*CREATING NEW TASK*/
     addTaskButton.addEventListener('click', function (evt) {
@@ -39,12 +45,16 @@ document.addEventListener('DOMContentLoaded', function () {
             taskCount++;
             localStorage.setItem('task_count', taskCount);
             settingsInfo.taskCount++;
+            
+            var newTaskInputPrice = newTask.querySelector('.js-price');
+            var newTaskDate = newTask.querySelector('.js-date');
+            pricesArr.push(newTaskInputPrice);
+            datesArr.push(newTaskDate);
 
 
             newTask.querySelector('[name=task-title]').value = taskName.value;
             newTask.dataset.taskID = taskCount;
             newTask.querySelector('.js-price').value = taskPrice.value;
-            console.dir(newTask);
 
             taskInfo['ID_' + newTask.dataset.taskID] = {
                 id: newTask.dataset.taskID,
@@ -128,8 +138,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 taskList.appendChild(newTask);
                 var newTaskInputPrice = newTask.querySelector('.js-price');
+                var newTaskDate = newTask.querySelector('.js-date');
                 
                 pricesArr.push(newTaskInputPrice);
+                datesArr.push(newTaskDate);
                 
                 
                 newTask.addEventListener('click', function (evt) {
