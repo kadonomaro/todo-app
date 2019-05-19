@@ -3,6 +3,23 @@ import getDate from "./date.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    var clearAllButton = document.querySelector('.js-settings-clear');
+
+    clearAllButton.addEventListener('click', function () {
+        this.classList.toggle('settings-clear--active');
+        clearAll();
+
+    });
+
+    function clearAll() {
+        localStorage.clear();
+        for (let i = 1; i < taskArr.length; i++) {
+            taskList.removeChild(taskArr[i]);
+        }
+        progressBar.value = 0;
+        taskArr.length = 1;
+    }
+
     var taskList = document.querySelector('.js-task-list');
     var addTask = document.querySelector('.js-add-task');
     var addTaskButton = taskList.querySelector('.js-task-button');

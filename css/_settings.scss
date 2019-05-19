@@ -82,21 +82,26 @@
 }
 
 
-.settings-toggle {
+.settings-button {
     position: absolute;
     z-index: 15;
     top: 50%;
-    left: 10px;
     width: 30px;
     height: 30px;
     background-color: transparent;
-    background-image: url('../image/settings.svg');
     border: 0;
     border-radius: 50%;
     transform: translateY(-50%);
+    cursor: pointer;
     transform-origin: center;
     transition: box-shadow 0.2s ease-in, transform 0.3s linear;
-    cursor: pointer;
+    
+}
+
+
+.settings-toggle {
+    left: 10px;
+    background-image: url('../image/settings.svg');
     outline: none;
     &:focus {
         box-shadow: 0 0 5px rgba($color: #303030, $alpha: 0.7);
@@ -104,6 +109,16 @@
 }
 .settings-toggle--active {
     transform: translateY(-50%) translateX(100%) rotate(180deg);
+}
+
+
+.settings-clear {
+    right: 10px;
+    background-image: url('../image/refresh.svg');
+    border-radius: 0;
+}
+.settings-clear--active {
+    transform: translateY(-50%) rotate(180deg);
 }
 
 
