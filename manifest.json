@@ -3,12 +3,12 @@
     "name": "To Do Application",
     "icons": [
       {
-        "src": "/image/icon-192.png",
+        "src": "image/icon-192.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "/image/icon-512.png",
+        "src": "image/icon-512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
