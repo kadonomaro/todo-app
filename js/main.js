@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var task = document.querySelector('.js-task');
     var progressBar = document.querySelector('.js-progress');
 
+
     var taskCount = 0;
     var checkedTaskCount = 0;
     var taskInfo = {};
@@ -101,11 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    function removeTask(task, taskList) {
-        taskList.removeChild(task);
-    }
-
-
     function saveObjToLocalStorage(key, obj) {
         var value = JSON.stringify(obj);
         localStorage.setItem(key, value);
@@ -172,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeTask(taskList, task) {
         var checkedButton = task.querySelector('.js-complete-button');
 
-        removeTask(task, taskList);
+        taskList.removeChild(task);
         delete taskInfo['ID_' + task.dataset.taskID];
         saveObjToLocalStorage('task_info', taskInfo);
         progressBar.max = Object.keys(taskInfo).length;
