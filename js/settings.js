@@ -24,7 +24,7 @@ var settings = {
             }
         });
     },
-    setSettingsOptions: function (eventElement, option, element, cssProp, isArray = false, log = false) {
+    setSettingsOptions: function (eventElement, option, element, cssProp, isArray = false) {
         if (!isArray && cssProp === 'height') {
             var elementHeight = element.clientHeight;
         }
@@ -69,8 +69,6 @@ var settings = {
                     break;
             
             }
-
-
         });
     }
 };

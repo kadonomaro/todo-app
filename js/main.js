@@ -1,4 +1,5 @@
 import settings, { optionProgressBar, optionDate, optionCount, optionPrice } from "./settings.js";
+import getDate from "./date.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         checkedTaskCount: 0
     };
 
+
     /* Arrays of price and date HTMLElements for push to them on create it */
     var pricesArr = [];
     var datesArr = [];
@@ -33,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
     settings.setSettingsOptions(optionPrice, optionPrice, taskPrice, 'display');
     settings.setSettingsOptions(optionPrice, optionPrice, pricesArr, 'display', true);
     settings.setSettingsOptions(optionDate, optionDate, datesArr, 'display', true);
-
 
     
     /*CREATING NEW TASK*/
@@ -55,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             newTask.querySelector('[name=task-title]').value = taskName.value;
             newTask.dataset.taskID = taskCount;
             newTask.querySelector('.js-price').value = taskPrice.value;
+            newTaskDate.textContent = getDate();
 
             taskInfo['ID_' + newTask.dataset.taskID] = {
                 id: newTask.dataset.taskID,

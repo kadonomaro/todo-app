@@ -357,13 +357,9 @@ body, h1, h2, h3, form, input {
         &:not(:last-child) {
             margin-bottom: 20px;
         }
-        &:first-child {
-            margin-bottom: 30px;
-        }
         &__date {
-            top: -60%;
             left: 36px;
-            padding: 2px;
+            padding: 0 3px;
         }
         &__input {
             width: 100%;

@@ -481,13 +481,9 @@ body, h1, h2, h3, form, input {
   .task:not(:last-child) {
     margin-bottom: 20px;
   }
-  .task:first-child {
-    margin-bottom: 30px;
-  }
   .task__date {
-    top: -60%;
     left: 36px;
-    padding: 2px;
+    padding: 0 3px;
   }
   .task__input {
     width: 100%;
