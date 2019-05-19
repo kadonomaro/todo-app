@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskCount = 0;
     var checkedTaskCount = 0;
     var taskInfo = {};
+    var settingsInfo = {
+        taskCount: 0,
+        checkedTaskCount: 0
+    };
     var pricesArr = [];
 
     var taskPriceInput = task.querySelector('.js-price');
@@ -34,19 +38,27 @@ document.addEventListener('DOMContentLoaded', function () {
         if (taskName.value !== '') {
             taskCount++;
             localStorage.setItem('task_count', taskCount);
+            settingsInfo.taskCount++;
+
             newTask.children[1].value = taskName.value;
             newTask.dataset.taskID = taskCount;
+            newTask.querySelector('.js-price').value = taskPrice.value;
 
             taskInfo['ID_' + newTask.dataset.taskID] = {
                 id: newTask.dataset.taskID,
-                title: newTask.children[1].value,
+                title: newTask.querySelector('[name=task-title]').value,
+                price: newTask.querySelector('.js-price').value,
                 checked: newTask.children[0].children[0].checked
             };
+
+            saveToLocalStorage('settings_info', settingsInfo);
+            
             saveToLocalStorage('task_info', taskInfo);
 
             progressBar.max = Object.keys(taskInfo).length;
 
             taskName.value = '';
+            taskPrice.value = '';
             taskName.focus();
             taskList.appendChild(newTask);
         } else {
@@ -104,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 newTask.classList.remove('task--hidden');
                 newTask.dataset.taskID = taskInfo[key].id;
                 newTask.children[1].value = taskInfo[key].title;
+                newTask.querySelector('.js-price').value = taskInfo[key].price;
 
                 if (taskInfo[key].checked) {
 
@@ -135,12 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    /**
-     * 
-     * @param {HTMLElement} taskList 
-     * @param {HTMLElement} task 
-     * @param {HTMLElement} checkedButton
-     */
+
     function closeTask(taskList, task) {
         var checkedButton = task.querySelector('.js-complete-button');
 
@@ -151,33 +159,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (checkedButton.checked) {
             checkedTaskCount--;
+            settingsInfo.checkedTaskCount--;
             progressBar.value = checkedTaskCount;
             localStorage.setItem('checked_task_count', checkedTaskCount);
+            saveToLocalStorage('settings_info', settingsInfo);
         }
 
         if (localStorage.getItem('task_info') === '{}') {
             taskCount = 0;
+            settingsInfo.taskCount = 0;
             localStorage.setItem('task_count', taskCount);
+            saveToLocalStorage('settings_info', settingsInfo);
         }
         
     }
 
 
-    /**
-     * 
-     * @param {HTMLElement} completeButton 
-     * @param {HTMLElement} task 
-     * @param {string} className 
-     */
     function completeTask(completeButton, task, className) {
         var taskTitle = task.querySelector('[name=task-title]');
 
         if (completeButton.checked) {
             task.classList.add(className);
             checkedTaskCount++;
+            settingsInfo.checkedTaskCount++;
         } else {
             task.classList.remove(className);
             checkedTaskCount--;
+            settingsInfo.checkedTaskCount--;
         }
 
         progressBar.value = checkedTaskCount;
@@ -191,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         saveToLocalStorage('task_info', taskInfo);
+        saveToLocalStorage('settings_info', settingsInfo);
 
     }
 
