@@ -40,20 +40,22 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('task_count', taskCount);
             settingsInfo.taskCount++;
 
-            newTask.children[1].value = taskName.value;
+
+            newTask.querySelector('[name=task-title]').value = taskName.value;
             newTask.dataset.taskID = taskCount;
             newTask.querySelector('.js-price').value = taskPrice.value;
+            console.dir(newTask);
 
             taskInfo['ID_' + newTask.dataset.taskID] = {
                 id: newTask.dataset.taskID,
                 title: newTask.querySelector('[name=task-title]').value,
                 price: newTask.querySelector('.js-price').value,
-                checked: newTask.children[0].children[0].checked
+                checked: newTask.querySelector('.js-complete-button').checked
             };
 
-            saveToLocalStorage('settings_info', settingsInfo);
+            saveObjToLocalStorage('settings_info', settingsInfo);
             
-            saveToLocalStorage('task_info', taskInfo);
+            saveObjToLocalStorage('task_info', taskInfo);
 
             progressBar.max = Object.keys(taskInfo).length;
 
@@ -91,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function saveToLocalStorage(key, obj) {
+    function saveObjToLocalStorage(key, obj) {
         var value = JSON.stringify(obj);
         localStorage.setItem(key, value);
     }
@@ -115,13 +117,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 var newTask = task.cloneNode(true);
                 newTask.classList.remove('task--hidden');
                 newTask.dataset.taskID = taskInfo[key].id;
-                newTask.children[1].value = taskInfo[key].title;
+                newTask.querySelector('[name=task-title]').value = taskInfo[key].title;
                 newTask.querySelector('.js-price').value = taskInfo[key].price;
 
                 if (taskInfo[key].checked) {
 
                     newTask.classList.add('task--completed');
-                    newTask.children[0].children[0].checked = true;
+                    newTask.querySelector('.js-complete-button').checked = true;
 
                 }
                 taskList.appendChild(newTask);
@@ -154,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         removeTask(task, taskList);
         delete taskInfo['ID_' + task.dataset.taskID];
-        saveToLocalStorage('task_info', taskInfo);
+        saveObjToLocalStorage('task_info', taskInfo);
         progressBar.max = Object.keys(taskInfo).length;
 
         if (checkedButton.checked) {
@@ -162,14 +164,14 @@ document.addEventListener('DOMContentLoaded', function () {
             settingsInfo.checkedTaskCount--;
             progressBar.value = checkedTaskCount;
             localStorage.setItem('checked_task_count', checkedTaskCount);
-            saveToLocalStorage('settings_info', settingsInfo);
+            saveObjToLocalStorage('settings_info', settingsInfo);
         }
 
         if (localStorage.getItem('task_info') === '{}') {
             taskCount = 0;
             settingsInfo.taskCount = 0;
             localStorage.setItem('task_count', taskCount);
-            saveToLocalStorage('settings_info', settingsInfo);
+            saveObjToLocalStorage('settings_info', settingsInfo);
         }
         
     }
@@ -177,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function completeTask(completeButton, task, className) {
         var taskTitle = task.querySelector('[name=task-title]');
+        var taskPrice = task.querySelector('.js-price');
 
         if (completeButton.checked) {
             task.classList.add(className);
@@ -195,11 +198,12 @@ document.addEventListener('DOMContentLoaded', function () {
         taskInfo['ID_' + task.dataset.taskID] = {
             id: task.dataset.taskID,
             title: taskTitle.value,
+            price: taskPrice.value,
             checked: completeButton.checked
         };
 
-        saveToLocalStorage('task_info', taskInfo);
-        saveToLocalStorage('settings_info', settingsInfo);
+        saveObjToLocalStorage('task_info', taskInfo);
+        saveObjToLocalStorage('settings_info', settingsInfo);
 
     }
 
