@@ -73,12 +73,15 @@ document.addEventListener('DOMContentLoaded', function () {
             newTask.dataset.taskID = taskCount;
             newTask.querySelector('.js-price').value = taskPrice.value;
             newTaskDate.textContent = getDate();
+            newTaskDate.setAttribute('datetime', getDate(true));
+            
 
             taskInfo['ID_' + newTask.dataset.taskID] = {
                 id: newTask.dataset.taskID,
                 title: newTask.querySelector('[name=task-title]').value,
                 price: newTask.querySelector('.js-price').value,
                 date: newTaskDate.textContent,
+                dateTime: newTaskDate.getAttribute('datetime'),
                 checked: newTask.querySelector('.js-complete-button').checked
             };
 
@@ -147,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 newTask.querySelector('[name=task-title]').value = taskInfo[key].title;
                 newTask.querySelector('.js-price').value = taskInfo[key].price;
                 newTaskDate.textContent = taskInfo[key].date;
+                newTaskDate.setAttribute('datetime', taskInfo[key].dateTime);
 
                 if (taskInfo[key].checked) {
 
@@ -230,6 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
             title: taskTitle.value,
             price: taskPrice.value,
             date: taskDate.textContent,
+            dateTime: taskDate.getAttribute('datetime'),
             checked: completeButton.checked
         };
 
