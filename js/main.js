@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 id: newTask.dataset.taskID,
                 title: newTask.querySelector('[name=task-title]').value,
                 price: newTask.querySelector('.js-price').value,
+                date: newTaskDate.textContent,
                 checked: newTask.querySelector('.js-complete-button').checked
             };
 
@@ -127,10 +128,14 @@ document.addEventListener('DOMContentLoaded', function () {
             if (taskInfo.hasOwnProperty(key)) {
 
                 var newTask = task.cloneNode(true);
+                var newTaskInputPrice = newTask.querySelector('.js-price');
+                var newTaskDate = newTask.querySelector('.js-date');
+
                 newTask.classList.remove('task--hidden');
                 newTask.dataset.taskID = taskInfo[key].id;
                 newTask.querySelector('[name=task-title]').value = taskInfo[key].title;
                 newTask.querySelector('.js-price').value = taskInfo[key].price;
+                newTaskDate.textContent = taskInfo[key].date;
 
                 if (taskInfo[key].checked) {
 
@@ -139,8 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 }
                 taskList.appendChild(newTask);
-                var newTaskInputPrice = newTask.querySelector('.js-price');
-                var newTaskDate = newTask.querySelector('.js-date');
+
                 
                 pricesArr.push(newTaskInputPrice);
                 datesArr.push(newTaskDate);
@@ -194,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function completeTask(completeButton, task, className) {
         var taskTitle = task.querySelector('[name=task-title]');
         var taskPrice = task.querySelector('.js-price');
+        var taskDate = task.querySelector('.js-date');
 
         if (completeButton.checked) {
             task.classList.add(className);
@@ -213,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
             id: task.dataset.taskID,
             title: taskTitle.value,
             price: taskPrice.value,
+            date: taskDate.textContent,
             checked: completeButton.checked
         };
 

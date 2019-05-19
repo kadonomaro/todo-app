@@ -8,7 +8,7 @@ function getDate() {
 	];
 	var date = new Date();
 	var dateNow =
-		date.getMinutes() + ':' + date.getHours() + ', ' +
+		date.getHours() + ':' + date.getMinutes() + ' ' +
 		date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear();
 	
 	return dateNow;
