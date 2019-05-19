@@ -28,13 +28,29 @@ var settings = {
         if (!isArray && cssProp === 'height') {
             var elementHeight = element.clientHeight;
         }
-        eventElement.addEventListener('input', function () {
+        eventElement.addEventListener('change', function () {
             
             switch (cssProp) {
 
                 case 'display':
                     
                     switch (isArray) {
+                        case true:
+                            if (option.checked) {
+                                element.forEach(function (elem) {
+                                    elem.style.display = "block";
+                                    elem.style.opacity = 1;
+                                });
+                            } else {
+                                element.forEach(function(elem) {
+                                    elem.style.opacity = 0;
+                                    setTimeout(function() {
+                                        elem.style.display = "none";
+                                    }, 300);
+                                });
+                            }
+                            break;
+                        
                         case false:
                             if (option.checked) {
                                 element.style.display = "block";
@@ -43,19 +59,6 @@ var settings = {
                             }
                             
                             break;
-                        
-                        case true:
-                            if (option.checked) {
-                                element.forEach(function(elem) {
-                                    elem.style.display = "block";
-                                });
-                            } else {
-                                element.forEach(function(elem) {
-                                    elem.style.display = "none";
-                                });
-                            }
-                            break;
-                    
                     }
 
                     break;

@@ -21,11 +21,13 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
 
-    /* Arrays of price and date HTMLElements for push to them on create it */
+/* Arrays of price and date HTMLElements for push to them on create it */
+    var taskArr = [];
     var pricesArr = [];
     var datesArr = [];
     var taskDate = task.querySelector('.js-date');
     var taskPriceInput = task.querySelector('.js-price');
+    taskArr.push(task);
     pricesArr.push(taskPriceInput);
     datesArr.push(taskDate);
 
@@ -35,7 +37,19 @@ document.addEventListener('DOMContentLoaded', function () {
     settings.setSettingsOptions(optionProgressBar, optionProgressBar, progressBar, 'height');
     settings.setSettingsOptions(optionPrice, optionPrice, taskPrice, 'display');
     settings.setSettingsOptions(optionPrice, optionPrice, pricesArr, 'display', true);
+
     settings.setSettingsOptions(optionDate, optionDate, datesArr, 'display', true);
+    optionDate.addEventListener('change', function () {
+        if (optionDate.checked) {
+            taskArr.forEach(function (task) {
+                task.classList.add('task--date-active');
+            });
+        } else {
+            taskArr.forEach(function (task) {
+                task.classList.remove('task--date-active');
+            });
+        }
+    });
 
     
     /*CREATING NEW TASK*/
@@ -50,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             var newTaskInputPrice = newTask.querySelector('.js-price');
             var newTaskDate = newTask.querySelector('.js-date');
+            taskArr.push(newTask);
             pricesArr.push(newTaskInputPrice);
             datesArr.push(newTaskDate);
 
@@ -141,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 taskList.appendChild(newTask);
 
-                
+                taskArr.push(newTask);
                 pricesArr.push(newTaskInputPrice);
                 datesArr.push(newTaskDate);
                 

@@ -243,13 +243,17 @@ body, h1, h2, h3, form, input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-transition: opacity 0.2s ease-in, -webkit-filter 0.2s ease-in, -webkit-transform 0.3s ease-in;
-  transition: opacity 0.2s ease-in, -webkit-filter 0.2s ease-in, -webkit-transform 0.3s ease-in;
-  transition: opacity 0.2s ease-in, filter 0.2s ease-in, transform 0.3s ease-in;
-  transition: opacity 0.2s ease-in, filter 0.2s ease-in, transform 0.3s ease-in, -webkit-filter 0.2s ease-in, -webkit-transform 0.3s ease-in;
+  -webkit-transition: opacity 0.2s ease-in, margin 0.3s linear, -webkit-filter 0.2s ease-in, -webkit-transform 0.3s ease-in;
+  transition: opacity 0.2s ease-in, margin 0.3s linear, -webkit-filter 0.2s ease-in, -webkit-transform 0.3s ease-in;
+  transition: opacity 0.2s ease-in, filter 0.2s ease-in, transform 0.3s ease-in, margin 0.3s linear;
+  transition: opacity 0.2s ease-in, filter 0.2s ease-in, transform 0.3s ease-in, margin 0.3s linear, -webkit-filter 0.2s ease-in, -webkit-transform 0.3s ease-in;
 }
 
 .task:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.task:first-child {
   margin-bottom: 25px;
 }
 
@@ -262,6 +266,8 @@ body, h1, h2, h3, form, input {
   font-size: 0.8em;
   font-weight: bold;
   background-color: #5ebe7f;
+  -webkit-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear;
 }
 
 .task__input {
@@ -307,6 +313,8 @@ body, h1, h2, h3, form, input {
 .task__input--price {
   display: none;
   max-width: 70px;
+  -webkit-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear;
 }
 
 .task__button {
@@ -479,7 +487,7 @@ body, h1, h2, h3, form, input {
         flex-wrap: wrap;
   }
   .task:not(:last-child) {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   .task__date {
     left: 36px;
@@ -496,6 +504,9 @@ body, h1, h2, h3, form, input {
     width: 30px;
     height: 30px;
     background-size: 70%;
+  }
+  .task--date-active:not(:last-child) {
+    margin-bottom: 20px;
   }
 }
 
