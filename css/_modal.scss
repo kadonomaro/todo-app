@@ -39,10 +39,16 @@
 }
 .modal--active {
     animation: modal-show 0.8s forwards linear;
+    visibility: visible;
 }
 .modal--blur {
     animation: modal-blur 1.6s forwards linear;
 }
+.modal--hidden {
+    visibility: hidden;
+}
+
+
 
 @keyframes modal-show {
     0% {

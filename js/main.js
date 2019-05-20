@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var task = document.querySelector('.js-task');
     var progressBar = document.querySelector('.js-progress');
 
+
     /* Clear all modal window */
     var clearModal = document.querySelector('.js-modal');
     var clearAllModalCallButton = document.querySelector('.js-settings-clear');
@@ -20,11 +21,14 @@ document.addEventListener('DOMContentLoaded', function () {
     clearAllModalCallButton.addEventListener('click', function () {
         this.classList.toggle('settings-clear--active');
         
-        
         if (clearModal.classList.contains('modal--active')) {
             clearModal.classList.remove('modal--active');
             clearModal.classList.add('modal--blur');
+            setTimeout(function(){
+                clearModal.classList.add('modal--hidden');
+            }, 300);
         } else {
+            clearModal.classList.remove('modal--hidden');
             clearModal.classList.add('modal--active');
             clearModal.classList.remove('modal--blur');
             clearAllCancelButton.focus();
@@ -35,10 +39,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (clearModal.classList.contains('modal--active')) {
             clearModal.classList.remove('modal--active');
             clearModal.classList.add('modal--blur');
+            setTimeout(function(){
+                clearModal.classList.add('modal--hidden');
+            }, 300);
+            taskName.focus();
         } else {
+            clearModal.classList.remove('modal--hidden');
             clearModal.classList.add('modal--active');
             clearModal.classList.remove('modal--blur');
-            clearAllCancelButton.focus();
+            
         }
         clearAll();
     });
@@ -47,13 +56,33 @@ document.addEventListener('DOMContentLoaded', function () {
         if (clearModal.classList.contains('modal--active')) {
             clearModal.classList.remove('modal--active');
             clearModal.classList.add('modal--blur');
+            setTimeout(function(){
+                clearModal.classList.add('modal--hidden');
+            }, 300);
+            taskName.focus();
         } else {
+            clearModal.classList.remove('modal--hidden');
             clearModal.classList.add('modal--active');
             clearModal.classList.remove('modal--blur');
-            clearAllCancelButton.focus();
+            
         }
     });
 
+    document.addEventListener('keydown', function (evt) {
+        if (evt.keyCode === 27 && clearModal.classList.contains('modal--active')) {
+            evt.preventDefault();
+            clearModal.classList.remove('modal--active');
+            clearModal.classList.add('modal--blur');
+            setTimeout(function(){
+                clearModal.classList.add('modal--hidden');
+            }, 300);
+            taskName.focus();
+        }
+    });
+
+    // function showClearAllModal(focus = false) {
+        
+    // }
 
 
     var taskCount = 0;
@@ -98,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     
-    /*CREATING NEW TASK*/
+    /*Creating new task*/
     addTaskButton.addEventListener('click', function (evt) {
         evt.preventDefault();
         var newTask = task.cloneNode(true);
@@ -150,13 +179,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         
         newTask.addEventListener('click', function (evt) {
-            /* CLOSING TASK*/
+            /* Closing task*/
             if (evt.target.classList.contains('js-close-button')) {
 
                 closeTask(taskList, this);
                 
             }
-            /* COMPLETION TASK*/
+            /* Completion task*/
             if (evt.target.classList.contains('js-complete-button')) {
 
                 completeTask(evt.target, this, 'task--completed');
@@ -165,13 +194,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* saved selected object to local storage */
+    /* Saved selected object to local storage */
     function saveObjToLocalStorage(key, obj) {
         var value = JSON.stringify(obj);
         localStorage.setItem(key, value);
     }
 
-    /* delete all tasks from app and local storage */
+    /* Delete all tasks from app and local storage */
     function clearAll() {
         localStorage.clear();
         taskInfo = {};

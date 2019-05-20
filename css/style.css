@@ -616,11 +616,16 @@ body, h1, h2, h3, form, input, p {
 .modal--active {
   -webkit-animation: modal-show 0.8s forwards linear;
           animation: modal-show 0.8s forwards linear;
+  visibility: visible;
 }
 
 .modal--blur {
   -webkit-animation: modal-blur 1.6s forwards linear;
           animation: modal-blur 1.6s forwards linear;
+}
+
+.modal--hidden {
+  visibility: hidden;
 }
 
 @-webkit-keyframes modal-show {
