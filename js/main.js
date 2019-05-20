@@ -3,24 +3,6 @@ import getDate from "./date.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    var clearAllButton = document.querySelector('.js-settings-clear');
-
-    clearAllButton.addEventListener('click', function () {
-        this.classList.toggle('settings-clear--active');
-        clearAll();
-
-    });
-
-    function clearAll() {
-        localStorage.clear();
-        taskInfo = {};
-        for (let i = 1; i < taskArr.length; i++) {
-            taskList.removeChild(taskArr[i]);
-        }
-        progressBar.value = 0;
-        taskArr.length = 1;
-    }
-
     var taskList = document.querySelector('.js-task-list');
     var addTask = document.querySelector('.js-add-task');
     var addTaskButton = taskList.querySelector('.js-task-button');
@@ -28,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskPrice = taskList.querySelector('.js-task-price');
     var task = document.querySelector('.js-task');
     var progressBar = document.querySelector('.js-progress');
+    var clearAllModalCallButton = document.querySelector('.js-settings-clear');
 
 
     var taskCount = 0;
@@ -49,9 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
     pricesArr.push(taskPriceInput);
     datesArr.push(taskDate);
 
-    
     loadTasks();
-    settings.init();
+    settings.init(clearAllModalCallButton);
     settings.setSettingsOptions(optionProgressBar, optionProgressBar, progressBar, 'height');
     settings.setSettingsOptions(optionPrice, optionPrice, taskPrice, 'display');
     settings.setSettingsOptions(optionPrice, optionPrice, pricesArr, 'display', true);
@@ -67,6 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 task.classList.remove('task--date-active');
             });
         }
+    });
+
+
+    clearAllModalCallButton.addEventListener('click', function () {
+        this.classList.toggle('settings-clear--active');
+        clearAll();
+
     });
 
     
@@ -137,10 +126,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-
+    /* saved selected object to local storage */
     function saveObjToLocalStorage(key, obj) {
         var value = JSON.stringify(obj);
         localStorage.setItem(key, value);
+    }
+
+    /* delete all tasks from app and local storage */
+    function clearAll() {
+        localStorage.clear();
+        taskInfo = {};
+        for (let i = 1; i < taskArr.length; i++) {
+            taskList.removeChild(taskArr[i]);
+        }
+        progressBar.value = 0;
+        taskArr.length = 1;
     }
 
 

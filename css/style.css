@@ -1,4 +1,4 @@
-body, h1, h2, h3, form, input {
+body, h1, h2, h3, form, input, p {
   margin: 0;
   padding: 0;
 }
@@ -16,11 +16,21 @@ body, h1, h2, h3, form, input {
 }
 
 .todo {
+  position: relative;
   max-width: 600px;
   margin: 0 auto;
   background-color: #e2e2e2;
   -webkit-box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
           box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+.todo__modal {
+  position: absolute;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .todo__header {
@@ -553,6 +563,57 @@ body, h1, h2, h3, form, input {
   }
   .task--date-active:not(:last-child) {
     margin-bottom: 20px;
+  }
+}
+
+.modal {
+  width: 60%;
+  min-height: 150px;
+  padding: 10px;
+  text-align: center;
+  background-color: #e2e2e2;
+  border: 3px solid #2fb6cf;
+  -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
+}
+
+.modal__title {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.modal__text {
+  margin-bottom: 15px;
+}
+
+.modal__button {
+  width: 60px;
+  padding: 6px 10px;
+  font-family: inherit;
+  border: 1px solid #2fb6cf;
+  background-color: transparent;
+  -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
+  -webkit-transition: background-color 0.2s ease-in,  color 0.2s ease-in,  -webkit-box-shadow 0.2s ease-in;
+  transition: background-color 0.2s ease-in,  color 0.2s ease-in,  -webkit-box-shadow 0.2s ease-in;
+  transition: background-color 0.2s ease-in,  color 0.2s ease-in,  box-shadow 0.2s ease-in;
+  transition: background-color 0.2s ease-in,  color 0.2s ease-in,  box-shadow 0.2s ease-in,  -webkit-box-shadow 0.2s ease-in;
+  cursor: pointer;
+}
+
+.modal__button:hover, .modal__button:focus {
+  color: #ffffff;
+  background-color: #2fb6cf;
+}
+
+.modal__button:active {
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+          box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 600px) {
+  .modal {
+    width: 70%;
   }
 }
 /*# sourceMappingURL=style.css.map */

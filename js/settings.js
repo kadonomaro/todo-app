@@ -8,11 +8,17 @@ var settings = {
     settingsBlock: document.querySelector('.js-settings'),
     settingsOption: document.querySelectorAll('.js-settings-option'),
 
-    init: function () {
+    init: function (otherHTMLElement) {
         var _this = this;
         this.settingsBlock.style.visibility = 'hidden';
         this.settingsToggle.addEventListener('click', function (evt) {
             evt.preventDefault();
+            if (!otherHTMLElement.hasAttribute('tabindex')) {
+                otherHTMLElement.setAttribute('tabindex', '-1');
+            } else {
+                otherHTMLElement.removeAttribute('tabindex');
+            }
+            
             this.classList.toggle('settings-toggle--active');
             _this.settingsBlock.classList.toggle('todo__settings--active');
             if (_this.settingsBlock.style.visibility === 'hidden') {
