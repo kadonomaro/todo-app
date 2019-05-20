@@ -10,7 +10,50 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskPrice = taskList.querySelector('.js-task-price');
     var task = document.querySelector('.js-task');
     var progressBar = document.querySelector('.js-progress');
+
+    /* Clear all modal window */
+    var clearModal = document.querySelector('.js-modal');
     var clearAllModalCallButton = document.querySelector('.js-settings-clear');
+    var clearAllOkButton = clearModal.querySelector('.js-modal-ok');
+    var clearAllCancelButton = clearModal.querySelector('.js-modal-cancel');
+
+    clearAllModalCallButton.addEventListener('click', function () {
+        this.classList.toggle('settings-clear--active');
+        
+        
+        if (clearModal.classList.contains('modal--active')) {
+            clearModal.classList.remove('modal--active');
+            clearModal.classList.add('modal--blur');
+        } else {
+            clearModal.classList.add('modal--active');
+            clearModal.classList.remove('modal--blur');
+            clearAllCancelButton.focus();
+        }
+    });
+
+    clearAllOkButton.addEventListener('click', function () {
+        if (clearModal.classList.contains('modal--active')) {
+            clearModal.classList.remove('modal--active');
+            clearModal.classList.add('modal--blur');
+        } else {
+            clearModal.classList.add('modal--active');
+            clearModal.classList.remove('modal--blur');
+            clearAllCancelButton.focus();
+        }
+        clearAll();
+    });
+
+    clearAllCancelButton.addEventListener('click', function () {
+        if (clearModal.classList.contains('modal--active')) {
+            clearModal.classList.remove('modal--active');
+            clearModal.classList.add('modal--blur');
+        } else {
+            clearModal.classList.add('modal--active');
+            clearModal.classList.remove('modal--blur');
+            clearAllCancelButton.focus();
+        }
+    });
+
 
 
     var taskCount = 0;
@@ -52,11 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    clearAllModalCallButton.addEventListener('click', function () {
-        this.classList.toggle('settings-clear--active');
-        clearAll();
 
-    });
 
     
     /*CREATING NEW TASK*/

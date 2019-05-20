@@ -6,6 +6,8 @@
     background-color: $color-gray;
     border: 3px solid $color-main;
     box-shadow: 0 0 7px rgba($color: #000000, $alpha: 0.5);
+    transform: translateX(-50%) translateY(-300px);
+    
     &__title {
         margin-bottom: 15px;
         font-size: 20px;
@@ -14,8 +16,8 @@
         margin-bottom: 15px;
     }
     &__button {
-        width: 60px;
-        padding: 6px 10px;
+        width: 70px;
+        padding: 6px 8px;
         font-family: inherit;
         border: 1px solid $color-main;
         background-color: transparent;
@@ -33,6 +35,51 @@
         &:active {
             box-shadow: 1px 1px 1px rgba($color: #000000, $alpha: 0.25);
         }
+    }
+}
+.modal--active {
+    animation: modal-show 0.8s forwards linear;
+}
+.modal--blur {
+    animation: modal-blur 1.6s forwards linear;
+}
+
+@keyframes modal-show {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-300px);
+    }
+    40% {
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(-50%) translateY(20px);
+    }
+    70% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    90% {
+        transform: translateX(-50%) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes modal-blur {
+    0% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+        filter: blur(0);
+    }
+    90% {
+        transform: translateX(-50%) translateY(-300px);
+        opacity: 0;
+        filter: blur(100px);
+    }
+    100% {
+        filter: none;
     }
 }
 
