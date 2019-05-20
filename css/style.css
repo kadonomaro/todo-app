@@ -242,6 +242,25 @@ body, h1, h2, h3, form, input {
   transition: -webkit-box-shadow 0.2s ease-in, -webkit-transform 0.3s linear;
   transition: box-shadow 0.2s ease-in, transform 0.3s linear;
   transition: box-shadow 0.2s ease-in, transform 0.3s linear, -webkit-box-shadow 0.2s ease-in, -webkit-transform 0.3s linear;
+  outline: none;
+}
+
+.settings-button:focus .settings-button__icon-path {
+  fill-opacity: 1;
+  stroke: #606060;
+}
+
+.settings-button__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.settings-button__icon-path {
+  fill: #e2e2e2;
+  fill-opacity: 0;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
 }
 
 .settings-toggle {
@@ -262,7 +281,6 @@ body, h1, h2, h3, form, input {
 
 .settings-clear {
   right: 10px;
-  background-image: url("../image/refresh.svg");
   border-radius: 0;
 }
 

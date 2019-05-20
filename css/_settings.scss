@@ -95,6 +95,21 @@
     cursor: pointer;
     transform-origin: center;
     transition: box-shadow 0.2s ease-in, transform 0.3s linear;
+    outline: none;
+    &:focus &__icon-path {
+        fill-opacity: 1;
+        stroke: $color-gray-dark;
+    }
+    &__icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &__icon-path {
+        fill: $color-gray;
+        fill-opacity: 0;
+        transition: all 0.3s ease-in;
+    }
     
 }
 
@@ -114,8 +129,8 @@
 
 .settings-clear {
     right: 10px;
-    background-image: url('../image/refresh.svg');
     border-radius: 0;
+
 }
 .settings-clear--active {
     transform: translateY(-50%) rotate(180deg);
