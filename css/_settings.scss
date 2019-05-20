@@ -86,16 +86,17 @@
     position: absolute;
     z-index: 15;
     top: 50%;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     background-color: transparent;
     border: 0;
     border-radius: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     transform-origin: center;
-    transition: box-shadow 0.2s ease-in, transform 0.3s linear;
+    transition: transform 0.3s linear;
     outline: none;
+    &:hover &__icon-path,
     &:focus &__icon-path {
         fill-opacity: 1;
         stroke: $color-gray-dark;
@@ -108,7 +109,7 @@
     &__icon-path {
         fill: $color-gray;
         fill-opacity: 0;
-        transition: all 0.3s ease-in;
+        transition: all 0.2s ease-in;
     }
     
 }
@@ -116,11 +117,7 @@
 
 .settings-toggle {
     left: 10px;
-    background-image: url('../image/settings.svg');
     outline: none;
-    &:focus {
-        box-shadow: 0 0 5px rgba($color: #303030, $alpha: 0.7);
-    }
 }
 .settings-toggle--active {
     transform: translateY(-50%) translateX(100%) rotate(180deg);

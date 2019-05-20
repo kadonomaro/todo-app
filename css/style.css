@@ -228,8 +228,8 @@ body, h1, h2, h3, form, input {
   position: absolute;
   z-index: 15;
   top: 50%;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   background-color: transparent;
   border: 0;
   border-radius: 50%;
@@ -238,13 +238,14 @@ body, h1, h2, h3, form, input {
   cursor: pointer;
   -webkit-transform-origin: center;
           transform-origin: center;
-  -webkit-transition: -webkit-box-shadow 0.2s ease-in, -webkit-transform 0.3s linear;
-  transition: -webkit-box-shadow 0.2s ease-in, -webkit-transform 0.3s linear;
-  transition: box-shadow 0.2s ease-in, transform 0.3s linear;
-  transition: box-shadow 0.2s ease-in, transform 0.3s linear, -webkit-box-shadow 0.2s ease-in, -webkit-transform 0.3s linear;
+  -webkit-transition: -webkit-transform 0.3s linear;
+  transition: -webkit-transform 0.3s linear;
+  transition: transform 0.3s linear;
+  transition: transform 0.3s linear, -webkit-transform 0.3s linear;
   outline: none;
 }
 
+.settings-button:hover .settings-button__icon-path,
 .settings-button:focus .settings-button__icon-path {
   fill-opacity: 1;
   stroke: #606060;
@@ -259,19 +260,13 @@ body, h1, h2, h3, form, input {
 .settings-button__icon-path {
   fill: #e2e2e2;
   fill-opacity: 0;
-  -webkit-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
 }
 
 .settings-toggle {
   left: 10px;
-  background-image: url("../image/settings.svg");
   outline: none;
-}
-
-.settings-toggle:focus {
-  -webkit-box-shadow: 0 0 5px rgba(48, 48, 48, 0.7);
-          box-shadow: 0 0 5px rgba(48, 48, 48, 0.7);
 }
 
 .settings-toggle--active {

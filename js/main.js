@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function clearAll() {
         localStorage.clear();
+        taskInfo = {};
         for (let i = 1; i < taskArr.length; i++) {
             taskList.removeChild(taskArr[i]);
         }
