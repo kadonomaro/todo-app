@@ -3,50 +3,46 @@
 
 var modal = {
     modalOpened: false,
-    clearAllModal:              document.querySelector('.js-modal'),
-    clearAllModalCallButton:    document.querySelector('.js-settings-clear'),
-    clearAllOkButton:           document.querySelector('.js-modal-ok'),
-    clearAllCancelButton:       document.querySelector('.js-modal-cancel'),
-    
-    init: function () {
+
+    init: function (modal, callButton, okButton, cancelButton, clearFunction) {
         var _this = this;
 
-        this.clearAllModalCallButton.addEventListener('click', function () {
+        callButton.addEventListener('click', function () {
             this.classList.toggle('settings-clear--active');
 
             if (_this.modalOpened) {
-                _this.close(_this.clearAllModal);
+                _this.close(modal, callButton);
             } else {
-                _this.open(_this.clearAllModal);
+                _this.open(modal, cancelButton);
             }
         });
 
-        this.clearAllOkButton.addEventListener('click', function () {
-            _this.close(_this.clearAllModal);
-            // clearAll();
+        okButton.addEventListener('click', function () {
+            _this.close(modal, callButton);
+            clearFunction();
         });
 
-        this.clearAllCancelButton.addEventListener('click', function () {
-            _this.close(_this.clearAllModal); 
+        cancelButton.addEventListener('click', function () {
+            _this.close(modal, callButton); 
         });
 
         document.addEventListener('keydown', function (evt) {
             if (evt.keyCode === 27 && _this.modalOpened) {
-                _this.close(_this.clearAllModal);
+                _this.close(modal, callButton);
             } 
         });
     },
     
-    open: function (modal) {
+    open: function (modal, focusButton) {
         if (!modal.classList.contains('modal--active')) {
             modal.classList.remove('modal--hidden');
             modal.classList.add('modal--active');
             modal.classList.remove('modal--blur');
             this.modalOpened = true;
-            this.clearAllCancelButton.focus();
+            focusButton.focus();
         }
     },
-    close: function (modal, focus = true) {
+    close: function (modal, focusButton, focus = true) {
         if (modal.classList.contains('modal--active')) {
             modal.classList.remove('modal--active');
             modal.classList.add('modal--blur');
@@ -56,7 +52,7 @@ var modal = {
             this.modalOpened = false;
         }
         if (focus) {
-            this.clearAllModalCallButton.focus();
+            focusButton.focus();
         }
     }
     

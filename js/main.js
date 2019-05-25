@@ -12,10 +12,15 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskPrice = taskList.querySelector('.js-task-price');
     var task = document.querySelector('.js-task');
 	var progressBar = document.querySelector('.js-progress');
+
+	var clearAllModal = document.querySelector('.js-modal');
+	var clearAllModalCallButton = document.querySelector('.js-settings-clear');
+	var clearAllOkButton = document.querySelector('.js-modal-ok');
+	var clearAllCancelButton = document.querySelector('.js-modal-cancel');
 	
 
-    var taskCount = 0;
-    var checkedTaskCount = 0;
+    // var taskCount = 0;
+    // var checkedTaskCount = 0;
     var taskInfo = {};
     var settingsInfo = {
         taskCount: 0,
@@ -36,10 +41,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	loadTasks();
 
 	modal.init(
-		
+		clearAllModal,
+		clearAllModalCallButton,
+		clearAllOkButton,
+		clearAllCancelButton,
+		clearAll
 	);
 
-	settings.init(modal.clearAllModalCallButton);
+	settings.init(clearAllModalCallButton);
     settings.setSettingsOptions(optionProgressBar, optionProgressBar, progressBar, 'height');
     settings.setSettingsOptions(optionPrice, optionPrice, taskPrice, 'display');
     settings.setSettingsOptions(optionPrice, optionPrice, pricesArr, 'display', true);
@@ -64,9 +73,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var newTask = task.cloneNode(true);
         newTask.classList.remove('task--hidden');
         if (taskName.value !== '') {
-            taskCount++;
-            localStorage.setItem('task_count', taskCount);
+            // taskCount++;
             settingsInfo.taskCount++;
+            // localStorage.setItem('task_count', taskCount);
             
             var newTaskInputPrice = newTask.querySelector('.js-price');
             var newTaskDate = newTask.querySelector('.js-date');
@@ -76,7 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             newTask.querySelector('[name=task-title]').value = taskName.value;
-            newTask.dataset.taskID = taskCount;
+			// newTask.dataset.taskID = taskCount;
+			newTask.dataset.taskID = settingsInfo.taskCount;
             newTask.querySelector('.js-price').value = taskPrice.value;
             newTaskDate.textContent = getDate();
             newTaskDate.setAttribute('datetime', getDate(true));
@@ -124,19 +134,34 @@ document.addEventListener('DOMContentLoaded', function () {
     function saveObjToLocalStorage(key, obj) {
         var value = JSON.stringify(obj);
         localStorage.setItem(key, value);
-    }
+	}
+	
+	function loadObjFromLocalStorage(key, obj) {
+		obj = localStorage.getItem(key);
+		obj = JSON.parse(obj);
+
+		return obj;
+	}
 
 
     function loadTasks() {
-        taskInfo = localStorage.getItem('task_info');
-        taskInfo = JSON.parse(taskInfo);
-        taskCount = localStorage.getItem('task_count');
+		taskInfo = loadObjFromLocalStorage('task_info', taskInfo);
+		// taskCount = localStorage.getItem('task_count');
+		settingsInfo = loadObjFromLocalStorage('settings_info', settingsInfo);
+		
         if (taskInfo === null) {
             taskInfo = {};
-        }
+		}
+		if (settingsInfo === null) {
+			settingsInfo = {
+				taskCount: 0,
+				checkedTaskCount: 0
+			};
+		}
         progressBar.max = Object.keys(taskInfo).length;
-        checkedTaskCount = localStorage.getItem('checked_task_count');
-        progressBar.value = checkedTaskCount;
+        // checkedTaskCount = localStorage.getItem('checked_task_count');
+		// progressBar.value = checkedTaskCount;
+		progressBar.value = settingsInfo.checkedTaskCount;
 
         for (var key in taskInfo) {
 
@@ -194,17 +219,18 @@ document.addEventListener('DOMContentLoaded', function () {
         progressBar.max = Object.keys(taskInfo).length;
 
         if (checkedButton.checked) {
-            checkedTaskCount--;
+            // checkedTaskCount--;
             settingsInfo.checkedTaskCount--;
-            progressBar.value = checkedTaskCount;
-            localStorage.setItem('checked_task_count', checkedTaskCount);
+			// progressBar.value = checkedTaskCount;
+			progressBar.value = settingsInfo.checkedTaskCount;
+            // localStorage.setItem('checked_task_count', checkedTaskCount);
             saveObjToLocalStorage('settings_info', settingsInfo);
         }
 
         if (localStorage.getItem('task_info') === '{}') {
-            taskCount = 0;
+            // taskCount = 0;
             settingsInfo.taskCount = 0;
-            localStorage.setItem('task_count', taskCount);
+            // localStorage.setItem('task_count', taskCount);
             saveObjToLocalStorage('settings_info', settingsInfo);
         }
         
@@ -218,17 +244,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (completeButton.checked) {
             task.classList.add(className);
-            checkedTaskCount++;
+            // checkedTaskCount++;
             settingsInfo.checkedTaskCount++;
         } else {
             task.classList.remove(className);
-            checkedTaskCount--;
+            // checkedTaskCount--;
             settingsInfo.checkedTaskCount--;
         }
 
-        progressBar.value = checkedTaskCount;
+		// progressBar.value = checkedTaskCount;
+		progressBar.value = settingsInfo.checkedTaskCount;
 
-        localStorage.setItem('checked_task_count', checkedTaskCount);
+        // localStorage.setItem('checked_task_count', checkedTaskCount);
 
         taskInfo['ID_' + task.dataset.taskID] = {
             id: task.dataset.taskID,
