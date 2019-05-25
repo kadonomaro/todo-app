@@ -19,16 +19,17 @@ document.addEventListener('DOMContentLoaded', function () {
 	var clearAllCancelButton = document.querySelector('.js-modal-cancel');
 	
 
-    // var taskCount = 0;
-    // var checkedTaskCount = 0;
     var taskInfo = {};
     var settingsInfo = {
-        taskCount: 0,
-        checkedTaskCount: 0
+        taskCounter: 0,
+		checkedtaskCounter: 0,
+		isProgressBarActive: null,
+		isPriceActive: null,
+		isDateActive: null
     };
 
 
-/* Arrays of price and date HTMLElements for push to them on create it */
+/* Arrays of prices and dates HTMLElements for push to them on create it */
     var taskArr = [];
     var pricesArr = [];
     var datesArr = [];
@@ -49,12 +50,27 @@ document.addEventListener('DOMContentLoaded', function () {
 	);
 
 	settings.init(clearAllModalCallButton);
-    settings.setSettingsOptions(optionProgressBar, optionProgressBar, progressBar, 'height');
-    settings.setSettingsOptions(optionPrice, optionPrice, taskPrice, 'display');
-    settings.setSettingsOptions(optionPrice, optionPrice, pricesArr, 'display', true);
 
-    settings.setSettingsOptions(optionDate, optionDate, datesArr, 'display', true);
-    optionDate.addEventListener('change', function () {
+	settings.setSettingsOption(optionProgressBar, optionProgressBar, progressBar, 'height');
+	optionProgressBar.addEventListener('change', function () {
+		settingsInfo.isProgressBarActive = this.checked;
+		saveObjToLocalStorage('settings_info', settingsInfo);
+	});
+
+	settings.setSettingsOption(optionPrice, optionPrice, taskPrice, 'display');
+	settings.setSettingsOption(optionPrice, optionPrice, pricesArr, 'display', true);
+	optionPrice.addEventListener('change', function () {
+		settingsInfo.isPriceActive = this.checked;
+		saveObjToLocalStorage('settings_info', settingsInfo);
+	});
+
+	
+
+    settings.setSettingsOption(optionDate, optionDate, datesArr, 'display', true);
+	optionDate.addEventListener('change', function () {
+		settingsInfo.isDateActive = this.checked;
+		saveObjToLocalStorage('settings_info', settingsInfo);
+
         if (optionDate.checked) {
             taskArr.forEach(function (task) {
                 task.classList.add('task--date-active');
@@ -64,7 +80,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 task.classList.remove('task--date-active');
             });
         }
-    });
+	});
+	
+	
 
 
     /*Creating new task*/
@@ -73,9 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var newTask = task.cloneNode(true);
         newTask.classList.remove('task--hidden');
         if (taskName.value !== '') {
-            // taskCount++;
-            settingsInfo.taskCount++;
-            // localStorage.setItem('task_count', taskCount);
+            settingsInfo.taskCounter++;
             
             var newTaskInputPrice = newTask.querySelector('.js-price');
             var newTaskDate = newTask.querySelector('.js-date');
@@ -85,8 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             newTask.querySelector('[name=task-title]').value = taskName.value;
-			// newTask.dataset.taskID = taskCount;
-			newTask.dataset.taskID = settingsInfo.taskCount;
+			newTask.dataset.taskID = settingsInfo.taskCounter;
             newTask.querySelector('.js-price').value = taskPrice.value;
             newTaskDate.textContent = getDate();
             newTaskDate.setAttribute('datetime', getDate(true));
@@ -130,23 +145,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* Saved selected object to local storage */
-    function saveObjToLocalStorage(key, obj) {
-        var value = JSON.stringify(obj);
-        localStorage.setItem(key, value);
-	}
-	
-	function loadObjFromLocalStorage(key, obj) {
-		obj = localStorage.getItem(key);
-		obj = JSON.parse(obj);
-
-		return obj;
-	}
-
 
     function loadTasks() {
 		taskInfo = loadObjFromLocalStorage('task_info', taskInfo);
-		// taskCount = localStorage.getItem('task_count');
 		settingsInfo = loadObjFromLocalStorage('settings_info', settingsInfo);
 		
         if (taskInfo === null) {
@@ -154,14 +155,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		if (settingsInfo === null) {
 			settingsInfo = {
-				taskCount: 0,
-				checkedTaskCount: 0
+				taskCounter: 0,
+				checkedtaskCounter: 0
 			};
 		}
         progressBar.max = Object.keys(taskInfo).length;
-        // checkedTaskCount = localStorage.getItem('checked_task_count');
-		// progressBar.value = checkedTaskCount;
-		progressBar.value = settingsInfo.checkedTaskCount;
+		progressBar.value = settingsInfo.checkedtaskCounter;
 
         for (var key in taskInfo) {
 
@@ -219,18 +218,13 @@ document.addEventListener('DOMContentLoaded', function () {
         progressBar.max = Object.keys(taskInfo).length;
 
         if (checkedButton.checked) {
-            // checkedTaskCount--;
-            settingsInfo.checkedTaskCount--;
-			// progressBar.value = checkedTaskCount;
-			progressBar.value = settingsInfo.checkedTaskCount;
-            // localStorage.setItem('checked_task_count', checkedTaskCount);
+            settingsInfo.checkedtaskCounter--;
+			progressBar.value = settingsInfo.checkedtaskCounter;
             saveObjToLocalStorage('settings_info', settingsInfo);
         }
 
         if (localStorage.getItem('task_info') === '{}') {
-            // taskCount = 0;
-            settingsInfo.taskCount = 0;
-            // localStorage.setItem('task_count', taskCount);
+            settingsInfo.taskCounter = 0;
             saveObjToLocalStorage('settings_info', settingsInfo);
         }
         
@@ -244,18 +238,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (completeButton.checked) {
             task.classList.add(className);
-            // checkedTaskCount++;
-            settingsInfo.checkedTaskCount++;
+            settingsInfo.checkedtaskCounter++;
         } else {
             task.classList.remove(className);
-            // checkedTaskCount--;
-            settingsInfo.checkedTaskCount--;
+            settingsInfo.checkedtaskCounter--;
         }
 
-		// progressBar.value = checkedTaskCount;
-		progressBar.value = settingsInfo.checkedTaskCount;
-
-        // localStorage.setItem('checked_task_count', checkedTaskCount);
+		progressBar.value = settingsInfo.checkedtaskCounter;
 
         taskInfo['ID_' + task.dataset.taskID] = {
             id: task.dataset.taskID,
@@ -270,7 +259,22 @@ document.addEventListener('DOMContentLoaded', function () {
         saveObjToLocalStorage('settings_info', settingsInfo);
 
 	}
+
+
+	/* Save selected object to local storage */
+	function saveObjToLocalStorage(key, obj) {
+		var value = JSON.stringify(obj);
+		localStorage.setItem(key, value);
+	}
+	/* Load selected object from local storage*/
+	function loadObjFromLocalStorage(key, obj) {
+		obj = localStorage.getItem(key);
+		obj = JSON.parse(obj);
+
+		return obj;
+	}
 	
+	/* Clear all items form local storage and remove tasks */
 	function clearAll() {
 		localStorage.clear();
 		taskInfo = {};

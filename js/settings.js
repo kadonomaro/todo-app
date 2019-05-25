@@ -6,7 +6,10 @@ var optionPrice = document.querySelector('[name=option-price]');
 var settings = {
     settingsToggle: document.querySelector('.js-settings-toggle'),
     settingsBlock: document.querySelector('.js-settings'),
-    settingsOption: document.querySelectorAll('.js-settings-option'),
+    // settingsOption: document.querySelectorAll('.js-settings-option'),
+
+
+
 
     init: function (otherHTMLElement) {
         var _this = this;
@@ -30,7 +33,8 @@ var settings = {
             }
         });
     },
-    setSettingsOptions: function (eventElement, option, element, cssProp, isArray = false) {
+
+    setSettingsOption: function (eventElement, option, element, cssProp, isArray = false) {
         if (!isArray && cssProp === 'height') {
             var elementHeight = element.clientHeight;
         }
@@ -78,7 +82,9 @@ var settings = {
                     break;
             
             }
+            
         });
+        
     }
 };
 

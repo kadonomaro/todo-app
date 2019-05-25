@@ -359,10 +359,10 @@ body, h1, h2, h3, form, input, p {
   border-radius: 0;
   -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
-  -webkit-transition: width 0.2s linear, -webkit-box-shadow 0.2s ease-in;
-  transition: width 0.2s linear, -webkit-box-shadow 0.2s ease-in;
-  transition: box-shadow 0.2s ease-in, width 0.2s linear;
-  transition: box-shadow 0.2s ease-in, width 0.2s linear, -webkit-box-shadow 0.2s ease-in;
+  -webkit-transition: width 0.2s linear, opacity 0.3s linear, -webkit-box-shadow 0.2s ease-in;
+  transition: width 0.2s linear, opacity 0.3s linear, -webkit-box-shadow 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in, width 0.2s linear, opacity 0.3s linear;
+  transition: box-shadow 0.2s ease-in, width 0.2s linear, opacity 0.3s linear, -webkit-box-shadow 0.2s ease-in;
   -webkit-appearance: none;
 }
 
@@ -390,8 +390,6 @@ body, h1, h2, h3, form, input, p {
 .task__input--price {
   display: none;
   max-width: 70px;
-  -webkit-transition: opacity 0.3s linear;
-  transition: opacity 0.3s linear;
 }
 
 .task__button {
