@@ -1,6 +1,7 @@
 import settings, { optionProgressBar, optionDate, optionCount, optionPrice } from "./settings.js";
 import getDate from "./date.js";
 
+
 document.addEventListener('DOMContentLoaded', function () {
 
     var taskList = document.querySelector('.js-task-list');
@@ -13,72 +14,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 /* Clear all modal window */
-	var modalOpened;
-    var clearModal = document.querySelector('.js-modal');
+	var modalOpened = false;
+    var clearAllModal = document.querySelector('.js-modal');
     var clearAllModalCallButton = document.querySelector('.js-settings-clear');
-    var clearAllOkButton = clearModal.querySelector('.js-modal-ok');
-    var clearAllCancelButton = clearModal.querySelector('.js-modal-cancel');
+    var clearAllOkButton = clearAllModal.querySelector('.js-modal-ok');
+    var clearAllCancelButton = clearAllModal.querySelector('.js-modal-cancel');
 
     clearAllModalCallButton.addEventListener('click', function () {
-        this.classList.toggle('settings-clear--active');
-        
-        if (clearModal.classList.contains('modal--active')) {
-            clearModal.classList.remove('modal--active');
-            clearModal.classList.add('modal--blur');
-            setTimeout(function(){
-                clearModal.classList.add('modal--hidden');
-            }, 300);
-        } else {
-            clearModal.classList.remove('modal--hidden');
-            clearModal.classList.add('modal--active');
-            clearModal.classList.remove('modal--blur');
+		this.classList.toggle('settings-clear--active');
+		
+		if (modalOpened) {
+			closeModal(clearAllModal);
+		} else {
+			openModal(clearAllModal);
+		}
 
-            clearAllCancelButton.focus();
-        }
     });
 
-    clearAllOkButton.addEventListener('click', function () {
-        if (clearModal.classList.contains('modal--active')) {
-            clearModal.classList.remove('modal--active');
-            clearModal.classList.add('modal--blur');
-            setTimeout(function(){
-                clearModal.classList.add('modal--hidden');
-            }, 300);
-        } else {
-            clearModal.classList.remove('modal--hidden');
-            clearModal.classList.add('modal--active');
-            clearModal.classList.remove('modal--blur');
-            
-        }
+	clearAllOkButton.addEventListener('click', function () {
+		closeModal(clearAllModal);
         clearAll();
     });
 
-    clearAllCancelButton.addEventListener('click', function () {
-        if (clearModal.classList.contains('modal--active')) {
-            clearModal.classList.remove('modal--active');
-            clearModal.classList.add('modal--blur');
-            setTimeout(function(){
-                clearModal.classList.add('modal--hidden');
-            }, 300);
-        } else {
-            clearModal.classList.remove('modal--hidden');
-            clearModal.classList.add('modal--active');
-            clearModal.classList.remove('modal--blur');
-            
-        }
+	clearAllCancelButton.addEventListener('click', function () {
+		closeModal(clearAllModal);
     });
 
-    document.addEventListener('keydown', function (evt) {
-        if (evt.keyCode === 27 && clearModal.classList.contains('modal--active')) {
-            evt.preventDefault();
-            clearModal.classList.remove('modal--active');
-            clearModal.classList.add('modal--blur');
-            setTimeout(function(){
-                clearModal.classList.add('modal--hidden');
-            }, 300);
+	document.addEventListener('keydown', function (evt) {
+		
+		if (evt.keyCode === 27 && modalOpened) {
+			closeModal(clearAllModal);
+		}
 
-            taskName.focus();
-        }
     });
 
 	function openModal(modal) {
@@ -88,12 +55,11 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.classList.add('modal--active');
 			modal.classList.remove('modal--blur');
 			modalOpened = true;
-			console.log(modalOpened);
+			clearAllCancelButton.focus();
 		}
-		
 	}
 	
-	function closeModal(modal) {
+	function closeModal(modal, focus=true) {
 
 		if (modal.classList.contains('modal--active')) {
             modal.classList.remove('modal--active');
@@ -102,9 +68,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 modal.classList.add('modal--hidden');
 			}, 300);
 			modalOpened = false;
-			console.log(modalOpened);
 		}
-		
+		if (focus) {
+			clearAllModalCallButton.focus();
+		}
+	}
+
+	    
+	function clearAll() {
+		localStorage.clear();
+		taskInfo = {};
+		for (let i = 1; i < taskArr.length; i++) {
+			taskList.removeChild(taskArr[i]);
+		}
+		progressBar.value = 0;
+		taskArr.length = 1;
 	}
 
 
@@ -218,17 +196,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function saveObjToLocalStorage(key, obj) {
         var value = JSON.stringify(obj);
         localStorage.setItem(key, value);
-    }
-
-    /* Delete all tasks from app and local storage */
-    function clearAll() {
-        localStorage.clear();
-        taskInfo = {};
-        for (let i = 1; i < taskArr.length; i++) {
-            taskList.removeChild(taskArr[i]);
-        }
-        progressBar.value = 0;
-        taskArr.length = 1;
     }
 
 
