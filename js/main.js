@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var progressBar = document.querySelector('.js-progress');
 
 
-    /* Clear all modal window */
+/* Clear all modal window */
+	var modalOpened;
     var clearModal = document.querySelector('.js-modal');
     var clearAllModalCallButton = document.querySelector('.js-settings-clear');
     var clearAllOkButton = clearModal.querySelector('.js-modal-ok');
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
             clearModal.classList.remove('modal--hidden');
             clearModal.classList.add('modal--active');
             clearModal.classList.remove('modal--blur');
+
             clearAllCancelButton.focus();
         }
     });
@@ -42,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(function(){
                 clearModal.classList.add('modal--hidden');
             }, 300);
-            taskName.focus();
         } else {
             clearModal.classList.remove('modal--hidden');
             clearModal.classList.add('modal--active');
@@ -59,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(function(){
                 clearModal.classList.add('modal--hidden');
             }, 300);
-            taskName.focus();
         } else {
             clearModal.classList.remove('modal--hidden');
             clearModal.classList.add('modal--active');
@@ -76,13 +76,36 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(function(){
                 clearModal.classList.add('modal--hidden');
             }, 300);
+
             taskName.focus();
         }
     });
 
-    // function showClearAllModal(focus = false) {
-        
-    // }
+	function openModal(modal) {
+
+        if (!modal.classList.contains('modal--active')) {
+            modal.classList.remove('modal--hidden');
+            modal.classList.add('modal--active');
+			modal.classList.remove('modal--blur');
+			modalOpened = true;
+			console.log(modalOpened);
+		}
+		
+	}
+	
+	function closeModal(modal) {
+
+		if (modal.classList.contains('modal--active')) {
+            modal.classList.remove('modal--active');
+            modal.classList.add('modal--blur');
+            setTimeout(function(){
+                modal.classList.add('modal--hidden');
+			}, 300);
+			modalOpened = false;
+			console.log(modalOpened);
+		}
+		
+	}
 
 
     var taskCount = 0;
@@ -124,9 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-
-
-    
     /*Creating new task*/
     addTaskButton.addEventListener('click', function (evt) {
         evt.preventDefault();
