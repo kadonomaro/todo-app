@@ -1,5 +1,6 @@
 import settings, { optionProgressBar, optionDate, optionCount, optionPrice } from "./settings.js";
 import getDate from "./date.js";
+import modal from "./modal.js";
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -10,81 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskName = taskList.querySelector('.js-task-name');
     var taskPrice = taskList.querySelector('.js-task-price');
     var task = document.querySelector('.js-task');
-    var progressBar = document.querySelector('.js-progress');
-
-
-/* Clear all modal window */
-	var modalOpened = false;
-    var clearAllModal = document.querySelector('.js-modal');
-    var clearAllModalCallButton = document.querySelector('.js-settings-clear');
-    var clearAllOkButton = clearAllModal.querySelector('.js-modal-ok');
-    var clearAllCancelButton = clearAllModal.querySelector('.js-modal-cancel');
-
-    clearAllModalCallButton.addEventListener('click', function () {
-		this.classList.toggle('settings-clear--active');
-		
-		if (modalOpened) {
-			closeModal(clearAllModal);
-		} else {
-			openModal(clearAllModal);
-		}
-
-    });
-
-	clearAllOkButton.addEventListener('click', function () {
-		closeModal(clearAllModal);
-        clearAll();
-    });
-
-	clearAllCancelButton.addEventListener('click', function () {
-		closeModal(clearAllModal);
-    });
-
-	document.addEventListener('keydown', function (evt) {
-		
-		if (evt.keyCode === 27 && modalOpened) {
-			closeModal(clearAllModal);
-		}
-
-    });
-
-	function openModal(modal) {
-
-        if (!modal.classList.contains('modal--active')) {
-            modal.classList.remove('modal--hidden');
-            modal.classList.add('modal--active');
-			modal.classList.remove('modal--blur');
-			modalOpened = true;
-			clearAllCancelButton.focus();
-		}
-	}
+	var progressBar = document.querySelector('.js-progress');
 	
-	function closeModal(modal, focus=true) {
-
-		if (modal.classList.contains('modal--active')) {
-            modal.classList.remove('modal--active');
-            modal.classList.add('modal--blur');
-            setTimeout(function(){
-                modal.classList.add('modal--hidden');
-			}, 300);
-			modalOpened = false;
-		}
-		if (focus) {
-			clearAllModalCallButton.focus();
-		}
-	}
-
-	    
-	function clearAll() {
-		localStorage.clear();
-		taskInfo = {};
-		for (let i = 1; i < taskArr.length; i++) {
-			taskList.removeChild(taskArr[i]);
-		}
-		progressBar.value = 0;
-		taskArr.length = 1;
-	}
-
 
     var taskCount = 0;
     var checkedTaskCount = 0;
@@ -105,8 +33,13 @@ document.addEventListener('DOMContentLoaded', function () {
     pricesArr.push(taskPriceInput);
     datesArr.push(taskDate);
 
-    loadTasks();
-    settings.init(clearAllModalCallButton);
+	loadTasks();
+
+	modal.init(
+		
+	);
+
+	settings.init(modal.clearAllModalCallButton);
     settings.setSettingsOptions(optionProgressBar, optionProgressBar, progressBar, 'height');
     settings.setSettingsOptions(optionPrice, optionPrice, taskPrice, 'display');
     settings.setSettingsOptions(optionPrice, optionPrice, pricesArr, 'display', true);
@@ -159,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
             };
 
             saveObjToLocalStorage('settings_info', settingsInfo);
-            
             saveObjToLocalStorage('task_info', taskInfo);
 
             progressBar.max = Object.keys(taskInfo).length;
@@ -179,15 +111,11 @@ document.addEventListener('DOMContentLoaded', function () {
         newTask.addEventListener('click', function (evt) {
             /* Closing task*/
             if (evt.target.classList.contains('js-close-button')) {
-
                 closeTask(taskList, this);
-                
             }
             /* Completion task*/
             if (evt.target.classList.contains('js-complete-button')) {
-
                 completeTask(evt.target, this, 'task--completed');
-
             }
         });
     });
@@ -314,7 +242,18 @@ document.addEventListener('DOMContentLoaded', function () {
         saveObjToLocalStorage('task_info', taskInfo);
         saveObjToLocalStorage('settings_info', settingsInfo);
 
-    }
+	}
+	
+	function clearAll() {
+		localStorage.clear();
+		taskInfo = {};
+		for (let i = 1; i < taskArr.length; i++) {
+			taskList.removeChild(taskArr[i]);
+		}
+		progressBar.value = 0;
+		taskArr.length = 1;
+	}
 
 });
+
 
