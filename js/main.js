@@ -23,10 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var settingsInfo = {
         taskCounter: 0,
 		checkedtaskCounter: 0,
-		isProgressBarActive: null,
-		isPriceActive: null,
-		isDateActive: null
-    };
+		isProgressBarActive: optionProgressBar.checked,
+		isPriceActive: optionPrice.checked,
+		isDateActive: optionDate.checked
+	};
+	// saveObjToLocalStorage('settings_info', settingsInfo);
+	
 
 
 /* Arrays of prices and dates HTMLElements for push to them on create it */
@@ -49,24 +51,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		clearAll
 	);
 
+
 	settings.init(clearAllModalCallButton);
 
-	settings.setSettingsOption(optionProgressBar, optionProgressBar, progressBar, 'height');
+	settings.setSettingsOption(optionProgressBar, settingsInfo.isProgressBarActive, progressBar, 'height');
 	optionProgressBar.addEventListener('change', function () {
 		settingsInfo.isProgressBarActive = this.checked;
 		saveObjToLocalStorage('settings_info', settingsInfo);
 	});
 
-	settings.setSettingsOption(optionPrice, optionPrice, taskPrice, 'display');
-	settings.setSettingsOption(optionPrice, optionPrice, pricesArr, 'display', true);
+	settings.setSettingsOption(optionPrice, settingsInfo.isPriceActive, taskPrice, 'display');
+	settings.setSettingsOption(optionPrice, settingsInfo.isPriceActive, pricesArr, 'display', true);
 	optionPrice.addEventListener('change', function () {
 		settingsInfo.isPriceActive = this.checked;
 		saveObjToLocalStorage('settings_info', settingsInfo);
 	});
 
-	
-
-    settings.setSettingsOption(optionDate, optionDate, datesArr, 'display', true);
+    settings.setSettingsOption(optionDate, settingsInfo.isDateActive, datesArr, 'display', true);
 	optionDate.addEventListener('change', function () {
 		settingsInfo.isDateActive = this.checked;
 		saveObjToLocalStorage('settings_info', settingsInfo);
@@ -81,6 +82,24 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 	});
+
+	// loadSettings();
+
+	function loadSettings() {
+		settingsInfo = loadObjFromLocalStorage('settings_info', settingsInfo);
+		if (settingsInfo === null) {
+			settingsInfo = {
+				taskCounter: 0,
+				checkedtaskCounter: 0,
+				isProgressBarActive: optionProgressBar.checked,
+				isPriceActive: optionPrice.checked,
+				isDateActive: optionDate.checked
+			};
+		}
+		optionProgressBar.checked = settingsInfo.isProgressBarActive;
+		optionPrice.checked = settingsInfo.isPriceActive;
+		optionDate.checked = settingsInfo.isDateActive;
+	}
 	
 	
 
@@ -278,6 +297,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	function clearAll() {
 		localStorage.clear();
 		taskInfo = {};
+		settingsInfo.taskCounter = 0;
+		settingsInfo.checkedtaskCounter = 0;
+		saveObjToLocalStorage('settings_info', settingsInfo);
 		for (let i = 1; i < taskArr.length; i++) {
 			taskList.removeChild(taskArr[i]);
 		}

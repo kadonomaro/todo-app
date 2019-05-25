@@ -46,7 +46,7 @@ var settings = {
                     
                     switch (isArray) {
                         case true:
-                            if (option.checked) {
+                            if (option) {
                                 element.forEach(function (elem) {
                                     elem.style.display = "block";
                                     elem.style.opacity = 1;
@@ -62,7 +62,7 @@ var settings = {
                             break;
                         
                         case false:
-                            if (option.checked) {
+                            if (option) {
                                 element.style.display = "block";
                             } else {
                                 element.style.display = "none";
@@ -74,7 +74,7 @@ var settings = {
                     break;
                 
                 case 'height':
-                    if (option.checked) {
+                    if (option) {
                         element.style.height = elementHeight + 'px';
                     } else {
                         element.style.height = '0';
