@@ -38,65 +38,55 @@ var settings = {
         eventElement,
         option,
         element,
-        cssProp,
-        isArray,
-        event) {
-        if (!isArray && cssProp === 'height') {
-            var elementHeight = element.clientHeight;
-        }
-        eventElement.addEventListener(event, function () {
-            switch (cssProp) {
+        className,
+        isArray) {
+        eventElement.addEventListener('change', function () {
 
-                case 'display':
-                    
-                    switch (isArray) {
-                        case true:
-                            if (option.checked) {
-                                element.forEach(function (elem) {
-                                    elem.style.display = "block";
-                                    elem.style.opacity = 1;
-                                });
-                            } else {
-                                element.forEach(function(elem) {
-                                    elem.style.opacity = 0;
-                                    setTimeout(function() {
-                                        elem.style.display = "none";
-                                    }, 300);
-                                });
-                            }
-                            break;
-                        
-                        case false:
-                            if (option.checked) {
-                                element.style.display = "block";
-                            } else {
-                                element.style.display = "none";
-                            }
-                            
-                            break;
-                    }
-
-                    break;
-                
-                case 'height':
+            switch (isArray) {
+                case true:
                     if (option.checked) {
-                        element.style.height = elementHeight + 'px';
+                        element.forEach(function (elem) {
+                            elem.classList.remove(className);
+                        });
                     } else {
-                        element.style.height = '0';
+                        element.forEach(function (elem) {
+                            elem.classList.add(className);
+                        });
                     }
                     break;
-            
+                case false:
+                    if (option.checked) {
+                        element.classList.remove(className);
+                    } else {
+                        element.classList.add(className);
+                    }
+                    break;
             }
             
         });
         
     },
-    load: function (eventElement, className, option) {
-        if (option) {
-            eventElement.classList.add(className);
-            console.log(eventElement, className);
-        }
-        
+    load: function (actionElement, ActionElementClassName, option, isArray) {
+        switch (isArray) {
+            case true:
+                if (option) {
+                    actionElement.forEach(function (elem) {
+                        elem.classList.remove(ActionElementClassName);
+                    });
+                } else {
+                    actionElement.forEach(function (elem) {
+                        elem.classList.add(ActionElementClassName);
+                    });
+                }
+                break;
+            case false:
+                if (option) {
+                    actionElement.classList.remove(ActionElementClassName);
+                } else {
+                    actionElement.classList.add(ActionElementClassName);
+                }
+                break;
+        } 
     }
 };
 

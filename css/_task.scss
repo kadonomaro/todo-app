@@ -19,6 +19,9 @@
         background-color: $color-second;
         transition: opacity 0.3s linear;
     }
+    &__date--hidden {
+        display: none;
+    }
     &__input {
         flex: 1;
         margin-right: 6px;
@@ -38,8 +41,11 @@
         }
     }
     &__input--price {
-        display: none;
+        // display: none;
         max-width: 70px;
+    }
+    &__input--price-hidden {
+        display: none;
     }
     &__button {
         width: 40px;

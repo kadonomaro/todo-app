@@ -55,20 +55,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	settings.init(clearAllModalCallButton);
 
-	settings.setSettingsOption(optionProgressBar, optionProgressBar, progressBar, 'height', false, 'change');
+	settings.setSettingsOption(optionProgressBar, optionProgressBar, progressBar, 'todo__progress--hidden', false);
 	optionProgressBar.addEventListener('change', function () {
 		settingsInfo.isProgressBarActive = this.checked;
 		saveObjToLocalStorage('settings_info', settingsInfo);
 	});
 
-	settings.setSettingsOption(optionPrice, optionPrice, taskPrice, 'display', false, 'change');
-	settings.setSettingsOption(optionPrice, optionPrice, pricesArr, 'display', true, 'change');
+	settings.setSettingsOption(optionPrice, optionPrice, taskPrice, 'task__input--price-hidden', false);
+	settings.setSettingsOption(optionPrice, optionPrice, pricesArr, 'task__input--price-hidden', true);
 	optionPrice.addEventListener('change', function () {
 		settingsInfo.isPriceActive = this.checked;
 		saveObjToLocalStorage('settings_info', settingsInfo);
 	});
 
-    settings.setSettingsOption(optionDate, optionDate, datesArr, 'display', true, 'change');
+    settings.setSettingsOption(optionDate, optionDate, datesArr, 'task__date--hidden', true);
 	optionDate.addEventListener('change', function () {
 		settingsInfo.isDateActive = this.checked;
 		saveObjToLocalStorage('settings_info', settingsInfo);
@@ -96,14 +96,15 @@ document.addEventListener('DOMContentLoaded', function () {
 				isPriceActive: optionPrice.checked,
 				isDateActive: optionDate.checked
 			};
-		}
+        }
 		optionProgressBar.checked = settingsInfo.isProgressBarActive;
 		optionPrice.checked = settingsInfo.isPriceActive;
         optionDate.checked = settingsInfo.isDateActive;
         
-        settings.load(optionProgressBar, 'progress', settingsInfo.isProgressBarActive);
-        settings.load(optionPrice, 'price', settingsInfo.isPriceActive);
-        settings.load(optionDate, 'date', settingsInfo.isDateActive);
+        settings.load(progressBar, 'todo__progress--hidden', settingsInfo.isProgressBarActive, false);
+        settings.load(datesArr, 'task__date--hidden', settingsInfo.isDateActive, true);
+        settings.load(taskPrice, 'task__input--price-hidden', settingsInfo.isPriceActive, false);
+        settings.load(pricesArr, 'task__input--price-hidden', settingsInfo.isPriceActive, true);
         
 	}
 	
