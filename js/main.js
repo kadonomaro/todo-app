@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	var clearAllModal = document.querySelector('.js-modal');
 	var clearAllModalCallButton = document.querySelector('.js-settings-clear');
 	var clearAllOkButton = document.querySelector('.js-modal-ok');
-	var clearAllCancelButton = document.querySelector('.js-modal-cancel');
+    var clearAllCancelButton = document.querySelector('.js-modal-cancel');
+    
+    var validNumber = /^[0-9]*$/;
 	
 
     var taskInfo = {};
@@ -115,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
         evt.preventDefault();
         var newTask = task.cloneNode(true);
         newTask.classList.remove('task--hidden');
-        if (taskName.value !== '') {
+        if (taskName.value !== '' && taskPrice.value.match(validNumber)) {
             settingsInfo.taskCounter++;
             
             var newTaskInputPrice = newTask.querySelector('.js-price');
@@ -148,6 +150,13 @@ document.addEventListener('DOMContentLoaded', function () {
             taskPrice.value = '';
             taskName.focus();
             taskList.appendChild(newTask);
+        } else if (!taskPrice.value.match(validNumber)) {
+            taskPrice.classList.add('task__input--price-invalid');
+            taskPrice.addEventListener('animationend', function () {
+                taskPrice.classList.remove('task__input--price-invalid');
+                taskPrice.value = '';
+                taskPrice.focus();
+            });
         } else {
             addTask.classList.add('task--invalid');
             addTask.addEventListener('animationend', function () {

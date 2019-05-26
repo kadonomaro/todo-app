@@ -47,6 +47,9 @@
     &__input--price-hidden {
         display: none;
     }
+    &__input--price-invalid {
+        animation: invalid-price 0.5s forwards ease-in;
+    }
     &__button {
         width: 40px;
         height: 40px;
@@ -141,6 +144,18 @@
     }
 }
 
+@keyframes invalid-price {
+    0% {
+        background-color: $color-gray-light;
+    }
+    50% {
+        background-color: #ff9999;
+    }
+    100% {
+        background-color: $color-gray-light;
+    }
+}
+
 
 
 @media screen and (max-width: 600px) {
@@ -167,7 +182,7 @@
         &__button {
             width: 30px;
             height: 30px;
-            background-size: 70%;
+            background-size: 80%;
         }
     }
     .task--date-active {

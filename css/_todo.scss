@@ -78,11 +78,14 @@
     
     .todo {
         box-shadow: none;
+        &__title {
+            font-size: 30px;
+        }
         &__settings {
             width: 90%;
         }
         &__body {
-            padding: 5px;
+            padding: 10px 5px;
         }
     }
 }

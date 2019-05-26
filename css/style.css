@@ -122,11 +122,14 @@ body, h1, h2, h3, form, input, p {
     -webkit-box-shadow: none;
             box-shadow: none;
   }
+  .todo__title {
+    font-size: 30px;
+  }
   .todo__settings {
     width: 90%;
   }
   .todo__body {
-    padding: 5px;
+    padding: 10px 5px;
   }
 }
 
@@ -312,9 +315,10 @@ body, h1, h2, h3, form, input, p {
 
 @media screen and (max-width: 320px) {
   .settings-toggle {
-    width: 25px;
-    height: 25px;
     left: 5px;
+  }
+  .settings-clear {
+    right: 5px;
   }
 }
 
@@ -400,6 +404,11 @@ body, h1, h2, h3, form, input, p {
 
 .task__input--price-hidden {
   display: none;
+}
+
+.task__input--price-invalid {
+  -webkit-animation: invalid-price 0.5s forwards ease-in;
+          animation: invalid-price 0.5s forwards ease-in;
 }
 
 .task__button {
@@ -542,6 +551,30 @@ body, h1, h2, h3, form, input, p {
   }
 }
 
+@-webkit-keyframes invalid-price {
+  0% {
+    background-color: #eeeeee;
+  }
+  50% {
+    background-color: #ff9999;
+  }
+  100% {
+    background-color: #eeeeee;
+  }
+}
+
+@keyframes invalid-price {
+  0% {
+    background-color: #eeeeee;
+  }
+  50% {
+    background-color: #ff9999;
+  }
+  100% {
+    background-color: #eeeeee;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .task {
     -ms-flex-wrap: wrap;
@@ -567,7 +600,7 @@ body, h1, h2, h3, form, input, p {
   .task__button {
     width: 30px;
     height: 30px;
-    background-size: 70%;
+    background-size: 80%;
   }
   .task--date-active:not(:last-child) {
     margin-bottom: 20px;

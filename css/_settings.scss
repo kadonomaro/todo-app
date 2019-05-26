@@ -153,8 +153,11 @@
 
 @media screen and (max-width: 320px) {
     .settings-toggle {
-        width: 25px;
-        height: 25px;
+        // width: 25px;
+        // height: 25px;
         left: 5px;
+    }
+    .settings-clear {
+        right: 5px;
     }
 }
