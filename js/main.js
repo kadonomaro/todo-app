@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		isPriceActive: optionPrice.checked,
 		isDateActive: optionDate.checked
 	};
-	// saveObjToLocalStorage('settings_info', settingsInfo);
+
 	
 
 
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     pricesArr.push(taskPriceInput);
     datesArr.push(taskDate);
 
+    loadSettings();
 	loadTasks();
 
 	modal.init(
@@ -54,20 +55,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	settings.init(clearAllModalCallButton);
 
-	settings.setSettingsOption(optionProgressBar, settingsInfo.isProgressBarActive, progressBar, 'height');
+	settings.setSettingsOption(optionProgressBar, optionProgressBar, progressBar, 'height', false, 'change');
 	optionProgressBar.addEventListener('change', function () {
 		settingsInfo.isProgressBarActive = this.checked;
 		saveObjToLocalStorage('settings_info', settingsInfo);
 	});
 
-	settings.setSettingsOption(optionPrice, settingsInfo.isPriceActive, taskPrice, 'display');
-	settings.setSettingsOption(optionPrice, settingsInfo.isPriceActive, pricesArr, 'display', true);
+	settings.setSettingsOption(optionPrice, optionPrice, taskPrice, 'display', false, 'change');
+	settings.setSettingsOption(optionPrice, optionPrice, pricesArr, 'display', true, 'change');
 	optionPrice.addEventListener('change', function () {
 		settingsInfo.isPriceActive = this.checked;
 		saveObjToLocalStorage('settings_info', settingsInfo);
 	});
 
-    settings.setSettingsOption(optionDate, settingsInfo.isDateActive, datesArr, 'display', true);
+    settings.setSettingsOption(optionDate, optionDate, datesArr, 'display', true, 'change');
 	optionDate.addEventListener('change', function () {
 		settingsInfo.isDateActive = this.checked;
 		saveObjToLocalStorage('settings_info', settingsInfo);
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 	});
 
-	// loadSettings();
+	
 
 	function loadSettings() {
 		settingsInfo = loadObjFromLocalStorage('settings_info', settingsInfo);
@@ -98,11 +99,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		optionProgressBar.checked = settingsInfo.isProgressBarActive;
 		optionPrice.checked = settingsInfo.isPriceActive;
-		optionDate.checked = settingsInfo.isDateActive;
+        optionDate.checked = settingsInfo.isDateActive;
+        
+        settings.load(optionProgressBar, 'progress', settingsInfo.isProgressBarActive);
+        settings.load(optionPrice, 'price', settingsInfo.isPriceActive);
+        settings.load(optionDate, 'date', settingsInfo.isDateActive);
+        
 	}
 	
 	
-
 
     /*Creating new task*/
     addTaskButton.addEventListener('click', function (evt) {
