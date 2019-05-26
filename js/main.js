@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		clearAll
 	);
 
-
+    
 	settings.init(clearAllModalCallButton);
 
 	settings.setSettingsOption(optionProgressBar, optionProgressBar, progressBar, 'todo__progress--hidden', false);
@@ -84,9 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 	});
 
-	
 
-	function loadSettings() {
+    function loadSettings() {
 		settingsInfo = loadObjFromLocalStorage('settings_info', settingsInfo);
 		if (settingsInfo === null) {
 			settingsInfo = {
@@ -103,16 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         settings.load(progressBar, 'todo__progress--hidden', settingsInfo.isProgressBarActive, false);
         settings.load(datesArr, 'task__date--hidden', settingsInfo.isDateActive, true);
-        settings.load(taskArr, 'task--date-active', settingsInfo.isDateActive, true);
-        if (settingsInfo.isDateActive) {
-            taskArr.forEach(function (task) {
-                task.classList.add('task--date-active');
-            });
-        } else {
-            taskArr.forEach(function (task) {
-                task.classList.remove('task--date-active');
-            });
-        }
+        settings.load(taskArr, 'task--date-active', !settingsInfo.isDateActive, true);
         settings.load(taskPrice, 'task__input--price-hidden', settingsInfo.isPriceActive, false);
         settings.load(pricesArr, 'task__input--price-hidden', settingsInfo.isPriceActive, true);
         
@@ -150,10 +140,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 dateTime: newTaskDate.getAttribute('datetime'),
                 checked: newTask.querySelector('.js-complete-button').checked
             };
-
             saveObjToLocalStorage('settings_info', settingsInfo);
             saveObjToLocalStorage('task_info', taskInfo);
-
             progressBar.max = Object.keys(taskInfo).length;
 
             taskName.value = '';
@@ -189,10 +177,13 @@ document.addEventListener('DOMContentLoaded', function () {
             taskInfo = {};
 		}
 		if (settingsInfo === null) {
-			settingsInfo = {
-				taskCounter: 0,
-				checkedtaskCounter: 0
-			};
+            settingsInfo = {
+                taskCounter: 0,
+                checkedtaskCounter: 0,
+                isProgressBarActive: optionProgressBar.checked,
+                isPriceActive: optionPrice.checked,
+                isDateActive: optionDate.checked
+            };
 		}
         progressBar.max = Object.keys(taskInfo).length;
 		progressBar.value = settingsInfo.checkedtaskCounter;
