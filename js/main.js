@@ -103,6 +103,16 @@ document.addEventListener('DOMContentLoaded', function () {
         
         settings.load(progressBar, 'todo__progress--hidden', settingsInfo.isProgressBarActive, false);
         settings.load(datesArr, 'task__date--hidden', settingsInfo.isDateActive, true);
+        settings.load(taskArr, 'task--date-active', settingsInfo.isDateActive, true);
+        if (settingsInfo.isDateActive) {
+            taskArr.forEach(function (task) {
+                task.classList.add('task--date-active');
+            });
+        } else {
+            taskArr.forEach(function (task) {
+                task.classList.remove('task--date-active');
+            });
+        }
         settings.load(taskPrice, 'task__input--price-hidden', settingsInfo.isPriceActive, false);
         settings.load(pricesArr, 'task__input--price-hidden', settingsInfo.isPriceActive, true);
         

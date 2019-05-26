@@ -66,24 +66,24 @@ var settings = {
         });
         
     },
-    load: function (actionElement, ActionElementClassName, option, isArray) {
+    load: function (actionElement, actionElementClassName, option, isArray) {
         switch (isArray) {
             case true:
                 if (option) {
                     actionElement.forEach(function (elem) {
-                        elem.classList.remove(ActionElementClassName);
+                        elem.classList.remove(actionElementClassName);
                     });
                 } else {
                     actionElement.forEach(function (elem) {
-                        elem.classList.add(ActionElementClassName);
+                        elem.classList.add(actionElementClassName);
                     });
                 }
                 break;
             case false:
                 if (option) {
-                    actionElement.classList.remove(ActionElementClassName);
+                    actionElement.classList.remove(actionElementClassName);
                 } else {
-                    actionElement.classList.add(ActionElementClassName);
+                    actionElement.classList.add(actionElementClassName);
                 }
                 break;
         } 
