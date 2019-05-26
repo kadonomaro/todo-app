@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var addTaskButton = taskList.querySelector('.js-task-button');
     var taskName = taskList.querySelector('.js-task-name');
     var taskPrice = taskList.querySelector('.js-task-price');
+    var taskSumm = document.querySelector('.js-price-summ');
     var task = document.querySelector('.js-task');
-	var progressBar = document.querySelector('.js-progress');
+    var progressBar = document.querySelector('.js-progress');
+    
 
 	var clearAllModal = document.querySelector('.js-modal');
 	var clearAllModalCallButton = document.querySelector('.js-settings-clear');
@@ -41,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var taskPriceInput = task.querySelector('.js-price');
     taskArr.push(task);
     pricesArr.push(taskPriceInput);
+    pricesArr.push(taskSumm);
     datesArr.push(taskDate);
 
     loadSettings();
@@ -63,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		saveObjToLocalStorage('settings_info', settingsInfo);
 	});
 
-	settings.setSettingsOption(optionPrice, optionPrice, taskPrice, 'task__input--price-hidden', false);
+    settings.setSettingsOption(optionPrice, optionPrice, taskPrice, 'task__input--price-hidden', false);
+    settings.setSettingsOption(optionPrice, optionPrice, taskSumm, 'task__input--summ-hidden', false);
 	settings.setSettingsOption(optionPrice, optionPrice, pricesArr, 'task__input--price-hidden', true);
 	optionPrice.addEventListener('change', function () {
 		settingsInfo.isPriceActive = this.checked;
@@ -148,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             taskName.value = '';
             taskPrice.value = '';
+            taskSumm.value = calculatePrice(pricesArr);
             taskName.focus();
             taskList.appendChild(newTask);
         } else if (!taskPrice.value.match(validNumber)) {
@@ -224,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 pricesArr.push(newTaskInputPrice);
                 datesArr.push(newTaskDate);
                 
+                taskSumm.value = calculatePrice(pricesArr);
                 
                 newTask.addEventListener('click', function (evt) {
                     /* CLOSING TASK*/
@@ -248,9 +254,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var checkedButton = task.querySelector('.js-complete-button');
 
         taskList.removeChild(task);
+
         delete taskInfo['ID_' + task.dataset.taskID];
         saveObjToLocalStorage('task_info', taskInfo);
         progressBar.max = Object.keys(taskInfo).length;
+        taskSumm.value = calculatePrice(pricesArr);
 
         if (checkedButton.checked) {
             settingsInfo.checkedtaskCounter--;
@@ -315,13 +323,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		taskInfo = {};
 		settingsInfo.taskCounter = 0;
 		settingsInfo.checkedtaskCounter = 0;
-		saveObjToLocalStorage('settings_info', settingsInfo);
+        saveObjToLocalStorage('settings_info', settingsInfo);
+        taskSumm.value = '';
 		for (let i = 1; i < taskArr.length; i++) {
 			taskList.removeChild(taskArr[i]);
 		}
 		progressBar.value = 0;
 		taskArr.length = 1;
-	}
+    }
+
+    
+    function calculatePrice(array) {
+        var summ = 0;
+        for (var i = 2; i < array.length; i++) {
+            summ += +pricesArr[i].value;
+        }
+        return summ;
+    }
 
 });
 

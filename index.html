@@ -60,11 +60,6 @@
                         <span class="settings__check-fake"></span>
                         <span class="settings__title">Tasks dates</span>
                     </label>
-                    <!-- <label class="settings__label">
-                        <input type="checkbox" name="option-count" class="settings__check js-settings-option" disabled>
-                        <span class="settings__check-fake"></span>
-                        <span class="settings__title">Tasks count</span>
-                    </label> -->
                     <label class="settings__label">
                         <input type="checkbox" name="option-price" class="settings__check js-settings-option">
                         <span class="settings__check-fake"></span>
@@ -78,7 +73,7 @@
             <form action="#" class="todo__tasks js-task-list">
                 <div class="task js-add-task">
                     <input type="text" class="task__input js-task-name" placeholder="Add task">
-                    <input type="text" class="task__input task__input--price js-task-price" placeholder="Set price">
+                    <input type="text" class="task__input task__input--price js-task-price" placeholder="price">
                     <button class="task__button js-task-button" aria-label="add new task"></button>
                 </div>
                 <div class="task task--hidden task--theme-second task--date-active js-task">
@@ -91,8 +86,9 @@
                     <input type="text" class="task__input task__input--price js-price" readonly>
                     <button class="task__button task__button--closing js-close-button" aria-label="close task"></button>
                 </div>
+                
             </form>
-
+            <input type="text" name="price-summ" class="task__input task__input--summ js-price-summ" readonly>
             <progress class="todo__progress js-progress"></progress>
             
         </div>

@@ -41,7 +41,6 @@
         }
     }
     &__input--price {
-        // display: none;
         max-width: 70px;
     }
     &__input--price-hidden {
@@ -49,6 +48,16 @@
     }
     &__input--price-invalid {
         animation: invalid-price 0.5s forwards ease-in;
+    }
+    &__input--summ {
+        display: block;
+        max-width: 70px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: 46px;
+    }
+    &__input--summ-hidden {
+        display: none;
     }
     &__button {
         width: 40px;
@@ -120,7 +129,7 @@
 }
 .task--date-active {
     &:not(:last-child) {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 }
 
@@ -177,7 +186,11 @@
             border-width: 2px;
         }
         &__input--price {
-            max-width: 55px;
+            max-width: 40px;
+        }
+        &__input--summ {
+            max-width: 40px;
+            margin-right: 36px;
         }
         &__button {
             width: 30px;
