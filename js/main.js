@@ -122,15 +122,16 @@ document.addEventListener('DOMContentLoaded', function () {
         evt.preventDefault();
         var newTask = task.cloneNode(true);
         newTask.classList.remove('task--hidden');
+        
         if (taskName.value !== '' && taskPrice.value.match(validNumber)) {
             settingsInfo.taskCounter++;
             
             var newTaskInputPrice = newTask.querySelector('.js-price');
             var newTaskDate = newTask.querySelector('.js-date');
+
             taskArr.push(newTask);
             pricesArr.push(newTaskInputPrice);
             datesArr.push(newTaskDate);
-
 
             newTask.querySelector('[name=task-title]').value = taskName.value;
 			newTask.dataset.taskID = settingsInfo.taskCounter;

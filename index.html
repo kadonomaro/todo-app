@@ -11,6 +11,8 @@
     <link rel="icon" sizes="32x32" href="image/icon-32.png">
     <link rel="manifest" href="manifest.json">
 
+    <meta name="google-site-verification" content="jTJcY-id_oBPs6liOip-NBgMwbhzWzZDc8WeZq4DCvU">
+
     <meta name="og:title" content="To-Do App">
     <meta name="og:description" content="Simple to-do list application">
     <meta name="og:url" content="https://kadonomaro.github.io/todo-app/">
@@ -65,6 +67,11 @@
                         <span class="settings__check-fake"></span>
                         <span class="settings__title">Tasks prices</span>
                     </label>
+                    <label class="settings__label">
+                        <input type="checkbox" name="option-about" class="settings__check js-about-button">
+                        <span class="settings__check-fake"></span>
+                        <span class="settings__title">About</span>
+                    </label>
                 </form>
             </div>
         </header>
@@ -91,6 +98,12 @@
             <input type="text" name="price-summ" class="task__input task__input--summ js-price-summ" readonly>
             <progress class="todo__progress js-progress"></progress>
             
+        </div>
+
+        <div class="todo__about about">
+            <span class="about__text">
+                Designed by <a href="https://github.com/kadonomaro/Main" class="about__link" target="_blank" rel="noopener noreferrer">Kadonomaro</a>
+            </span>
         </div>
 
     </div><!--todo-->

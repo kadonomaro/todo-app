@@ -1,0 +1,29 @@
+.about {
+    padding: 10px;
+    text-align: center;
+    background-color: inherit;
+    &__text {
+
+    }
+    &__link {
+        position: relative;
+        display: inline-block;
+        color: $color-main;
+        text-decoration: none;
+        transition: transform 0.3s ease-in;
+        &:hover {
+            transform: translateX(30px);
+        }
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            vertical-align: text-bottom;
+            width: 25px;
+            height: 25px;
+            background-color: red;
+            transform: translate(-50%, -50%);
+        }
+    }
+}

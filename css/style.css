@@ -117,6 +117,16 @@ body, h1, h2, h3, form, input, p {
   margin: 0;
 }
 
+.todo__about {
+  position: absolute;
+  z-index: -1;
+  width: 80%;
+  left: 50%;
+  bottom: -50px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
 @media screen and (max-width: 600px) {
   .todo {
     -webkit-box-shadow: none;
@@ -788,5 +798,40 @@ body, h1, h2, h3, form, input, p {
   .modal {
     width: 70%;
   }
+}
+
+.about {
+  padding: 10px;
+  text-align: center;
+  background-color: inherit;
+}
+
+.about__link {
+  position: relative;
+  display: inline-block;
+  color: #2fb6cf;
+  text-decoration: none;
+  -webkit-transition: -webkit-transform 0.3s ease-in;
+  transition: -webkit-transform 0.3s ease-in;
+  transition: transform 0.3s ease-in;
+  transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
+}
+
+.about__link:hover {
+  -webkit-transform: translateX(30px);
+          transform: translateX(30px);
+}
+
+.about__link::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  vertical-align: text-bottom;
+  width: 25px;
+  height: 25px;
+  background-color: red;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 /*# sourceMappingURL=style.css.map */
