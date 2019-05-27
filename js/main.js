@@ -1,6 +1,7 @@
 import settings, { optionProgressBar, optionDate, optionCount, optionPrice } from "./settings.js";
 import getDate from "./date.js";
 import modal from "./modal.js";
+import aboutBlockAction from "./about.js";
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -122,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
         evt.preventDefault();
         var newTask = task.cloneNode(true);
         newTask.classList.remove('task--hidden');
-        
+
         if (taskName.value !== '' && taskPrice.value.match(validNumber)) {
             settingsInfo.taskCounter++;
             
@@ -357,6 +358,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return summ;
     }
+
+    aboutBlockAction();
 
 });
 
