@@ -417,6 +417,7 @@ body, h1, h2, h3, form, input, p {
   margin-top: 10px;
   margin-left: auto;
   margin-right: 46px;
+  border-color: #5ebe7f;
 }
 
 .task__input--summ-hidden {

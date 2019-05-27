@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
         settings.load(datesArr, 'task__date--hidden', settingsInfo.isDateActive, true);
         settings.load(taskArr, 'task--date-active', !settingsInfo.isDateActive, true);
         settings.load(taskPrice, 'task__input--price-hidden', settingsInfo.isPriceActive, false);
+        settings.load(taskSumm, 'task__input--summ-hidden', settingsInfo.isPriceActive, false);
         settings.load(pricesArr, 'task__input--price-hidden', settingsInfo.isPriceActive, true);
         
 	}
@@ -254,6 +255,20 @@ document.addEventListener('DOMContentLoaded', function () {
         var checkedButton = task.querySelector('.js-complete-button');
 
         taskList.removeChild(task);
+        // console.log('price before: ',pricesArr);
+        // console.log('tasks before: ',taskArr);
+        pricesArr = pricesArr.filter(function (item) {
+            if (item.parentElement !== task) {
+                return item;
+            }
+        });
+        taskArr = taskArr.filter(function (item) {
+            if (item !== task) {
+                return item;
+            } 
+        });
+        // console.log('price after: ',pricesArr);
+        // console.log('tasks after: ',taskArr);
 
         delete taskInfo['ID_' + task.dataset.taskID];
         saveObjToLocalStorage('task_info', taskInfo);
@@ -329,7 +344,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			taskList.removeChild(taskArr[i]);
 		}
 		progressBar.value = 0;
-		taskArr.length = 1;
+        taskArr.length = 1;
+        pricesArr.length = 2;
     }
 
     
