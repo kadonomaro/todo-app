@@ -6,10 +6,6 @@ var optionPrice = document.querySelector('[name=option-price]');
 var settings = {
     settingsToggle: document.querySelector('.js-settings-toggle'),
     settingsBlock: document.querySelector('.js-settings'),
-    // settingsOption: document.querySelectorAll('.js-settings-option'),
-
-
-
 
     init: function (otherHTMLElement) {
         var _this = this;

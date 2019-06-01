@@ -7,7 +7,7 @@ export default function aboutBlockAction() {
         if (!aboutBlock.classList.contains('todo__about--active')) {
             setTimeout(function () {
                 aboutBlock.style.visibility = 'hidden';
-            }, 500);
+            }, 300);
         } else {
             aboutBlock.style.visibility = 'visible';
         }

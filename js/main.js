@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		isDateActive: optionDate.checked
 	};
 
-	
 
 
 /* Arrays of prices and dates HTMLElements for push to them on create it */
@@ -155,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             taskName.value = '';
             taskPrice.value = '';
-            taskSumm.value = calculatePrice(pricesArr);
+            taskSumm.value = calculatePrice(pricesArr, 2);
             taskName.focus();
             taskList.appendChild(newTask);
         } else if (!taskPrice.value.match(validNumber)) {
@@ -232,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 pricesArr.push(newTaskInputPrice);
                 datesArr.push(newTaskDate);
                 
-                taskSumm.value = calculatePrice(pricesArr);
+                taskSumm.value = calculatePrice(pricesArr, 2);
                 
                 newTask.addEventListener('click', function (evt) {
                     /* CLOSING TASK*/
@@ -275,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
         delete taskInfo['ID_' + task.dataset.taskID];
         saveObjToLocalStorage('task_info', taskInfo);
         progressBar.max = Object.keys(taskInfo).length;
-        taskSumm.value = calculatePrice(pricesArr);
+        taskSumm.value = calculatePrice(pricesArr, 2);
 
         if (checkedButton.checked) {
             settingsInfo.checkedtaskCounter--;
@@ -325,7 +324,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	function saveObjToLocalStorage(key, obj) {
 		var value = JSON.stringify(obj);
 		localStorage.setItem(key, value);
-	}
+    }
+    
+
 	/* Load selected object from local storage*/
 	function loadObjFromLocalStorage(key, obj) {
 		obj = localStorage.getItem(key);
@@ -333,7 +334,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		return obj;
 	}
-	
+    
+    
 	/* Clear all items form local storage and remove tasks */
 	function clearAll() {
 		localStorage.clear();
@@ -351,9 +353,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     
-    function calculatePrice(array) {
+    function calculatePrice(array, startIndex) {
         var summ = 0;
-        for (var i = 2; i < array.length; i++) {
+        for (var i = startIndex; i < array.length; i++) {
             summ += +pricesArr[i].value;
         }
         return summ;
