@@ -7,8 +7,6 @@ import checkUserAgent from "./checkUserAgent.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    localStorage.clear();
-
     var taskList = document.querySelector('.js-task-list');
     var addTask = document.querySelector('.js-add-task');
     var addTaskButton = taskList.querySelector('.js-task-button');
@@ -35,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		isPriceActive: optionPrice.checked,
 		isDateActive: optionDate.checked
 	};
-
 
 
 /* Arrays of prices and dates HTMLElements for push to them on create it */
@@ -259,8 +256,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var checkedButton = task.querySelector('.js-complete-button');
 
         taskList.removeChild(task);
-        // console.log('price before: ',pricesArr);
-        // console.log('tasks before: ',taskArr);
         pricesArr = pricesArr.filter(function (item) {
             if (item.parentElement !== task) {
                 return item;
@@ -271,8 +266,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 return item;
             } 
         });
-        // console.log('price after: ',pricesArr);
-        // console.log('tasks after: ',taskArr);
 
         delete taskInfo['ID_' + task.dataset.taskID];
         saveObjToLocalStorage('task_info', taskInfo);
