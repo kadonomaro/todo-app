@@ -2,6 +2,7 @@ import settings, { optionProgressBar, optionDate, optionCount, optionPrice } fro
 import getDate from "./date.js";
 import modal from "./modal.js";
 import aboutBlockAction from "./about.js";
+import checkUserAgent from "./checkUserAgent.js";
 
 
 document.addEventListener('DOMContentLoaded', function () {

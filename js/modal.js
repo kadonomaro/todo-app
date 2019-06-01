@@ -1,4 +1,4 @@
-
+import checkUserAgent from "./checkUserAgent.js";
 
 
 var modal = {
