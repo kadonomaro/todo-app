@@ -4,7 +4,7 @@
         var event = 'click';
 
         if (iOS !== null) {
-            event = 'touchstart';
+            event = 'click';
         }
 
         return event;

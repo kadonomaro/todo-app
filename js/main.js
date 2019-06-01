@@ -7,6 +7,8 @@ import checkUserAgent from "./checkUserAgent.js";
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    localStorage.clear();
+
     var taskList = document.querySelector('.js-task-list');
     var addTask = document.querySelector('.js-add-task');
     var addTaskButton = taskList.querySelector('.js-task-button');
