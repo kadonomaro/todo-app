@@ -7,7 +7,7 @@ var modal = {
     init: function (modal, callButton, okButton, cancelButton, clearFunction) {
         var _this = this;
 
-        callButton.addEventListener('click', function () {
+        callButton.addEventListener(checkUserAgent(), function () {
             this.classList.toggle('settings-clear--active');
 
             if (_this.modalOpened) {
@@ -17,12 +17,12 @@ var modal = {
             }
         });
 
-        okButton.addEventListener('click', function () {
+        okButton.addEventListener(checkUserAgent(), function () {
             _this.close(modal, callButton);
             clearFunction();
         });
 
-        cancelButton.addEventListener('click', function () {
+        cancelButton.addEventListener(checkUserAgent(), function () {
             _this.close(modal, callButton); 
         });
 

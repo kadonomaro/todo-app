@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 
     /*Creating new task*/
-    addTaskButton.addEventListener('click', function (evt) {
+    addTaskButton.addEventListener(checkUserAgent(), function (evt) {
         evt.preventDefault();
         var newTask = task.cloneNode(true);
         newTask.classList.remove('task--hidden');
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
         
-        newTask.addEventListener('click', function (evt) {
+        newTask.addEventListener(checkUserAgent(), function (evt) {
             /* Closing task*/
             if (evt.target.classList.contains('js-close-button')) {
                 closeTask(taskList, this);
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 
                 taskSumm.value = calculatePrice(pricesArr, 2);
                 
-                newTask.addEventListener('click', function (evt) {
+                newTask.addEventListener(checkUserAgent(), function (evt) {
                     /* CLOSING TASK*/
                     if (evt.target.classList.contains('js-close-button')) {
 

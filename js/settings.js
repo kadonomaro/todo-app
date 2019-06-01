@@ -1,7 +1,10 @@
+import checkUserAgent from "./checkUserAgent.js";
+
 var optionProgressBar = document.querySelector('[name=option-progress-bar]');
 var optionDate = document.querySelector('[name=option-date]');
 var optionCount = document.querySelector('[name=option-count]');
 var optionPrice = document.querySelector('[name=option-price]');
+
 
 var settings = {
     settingsToggle: document.querySelector('.js-settings-toggle'),
@@ -10,7 +13,7 @@ var settings = {
     init: function (otherHTMLElement) {
         var _this = this;
         this.settingsBlock.style.visibility = 'hidden';
-        this.settingsToggle.addEventListener('click', function (evt) {
+        this.settingsToggle.addEventListener(checkUserAgent(), function (evt) {
             evt.preventDefault();
             if (!otherHTMLElement.hasAttribute('tabindex')) {
                 otherHTMLElement.setAttribute('tabindex', '-1');
